@@ -38,7 +38,22 @@ import Affix from './directives/affix'
 import App from './App.vue'
 import router from './router/' 
 import store from './store' 
-import i18n_messages from './i18n.json' 
+import i18n_messages from './i18n.json'
+
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ *\
+|        AXIOS         |
+\* ═ ═ ═ ═ ═ ═ ═ ═ ═ */
+
+import axios from 'axios'
+
+Vue.use({
+	install (Vue) {
+		Vue.prototype.$axios =  axios.create({
+			baseURL: "https://httpbin.org/get",
+			headers: { Authorization: 'Bearer {token}' }
+		})
+	}
+})
 
 
 Vue.config.productionTip = false
