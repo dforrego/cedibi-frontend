@@ -71,7 +71,7 @@ import HorizontalNav from '@/core/horizontal-nav.vue'
 import VerticalNav from '@/core/vertical-nav.vue'
 import Toolbar from '@/core/toolbar.vue'
 import Footer from '@/core/footer.vue'
-import LayoutPicker from '@/components/layout-picker.vue'
+
 
 export default {
 	name: 'App',
@@ -126,8 +126,7 @@ export default {
 		HorizontalNav,
 		VerticalNav,
 		Toolbar,
-		Footer,
-		LayoutPicker
+		Footer
 	},
 	created() {
 		if(browser.name)

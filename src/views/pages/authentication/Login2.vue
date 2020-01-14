@@ -2,14 +2,20 @@
 	<div class="login-page flex">
 		<div class="box grow scrollable align-vertical side-box box-left">
 			<div class="align-vertical-middle wrapper text-center">
-				<img class="image-logo" src="@/assets/images/logo.svg" alt="logo-left"/>
-				<h1 class="h-big">Pragmatic</h1>
-				<p class="p-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat, vel convallis elit fermentum pellentesque. Sed mollis velit facilisis facilisis viverra.</p>
+				
+				<h1 class="h-big text-white">Pragmatic</h1>
+				<p class="p-50 text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat, vel convallis elit fermentum pellentesque. Sed mollis velit facilisis facilisis viverra.</p>
 			</div>
 		</div>
 		<div class="box grow scrollable align-vertical side-box box-right">
 			<div class="align-vertical-middle wrapper">
-				
+				<el-row :gutter="10"> 
+					<el-col :span="12" :offset="8">
+					<div class="grid-content bg-purple">
+						<img class="image-logo" src="@/assets/images/logo.svg" alt="logo-left" width="200px"/>
+					</div>
+				</el-col> 
+				</el-row>
 				<form class="form-box" @submit.prevent="login">
 					<h2>Log in to your account</h2>
 					<p class="mb-40">Go to the dashboard</p>
@@ -73,7 +79,12 @@ export default {
 	}
 
 	.box-left {
-		background-image: url('../../../assets/images/login2.jpg');
+		
+		background-image: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url('../../../assets/images/preview.jpg');
 		background-size: cover;
 		background-position: 50% 50%;
 

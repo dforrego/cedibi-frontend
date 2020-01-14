@@ -23,7 +23,7 @@ const router = new Router({
 	//base: '/sub-path/',
 	routes: [
 		{
-			path: '/',
+			path: '/dashboard',
 			alias: '/dashboard',
 			name: 'dashboard',
 			component: Dashboard,
@@ -54,7 +54,7 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/login2',
+			path: '/',
 			name: 'login2',
 			component: Login2,
 			meta: {
