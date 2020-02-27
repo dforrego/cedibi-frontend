@@ -49,8 +49,16 @@ import axios from 'axios'
 Vue.use({
 	install (Vue) {
 		Vue.prototype.$axios =  axios.create({
-			baseURL: "https://httpbin.org/get",
-			headers: { Authorization: 'Bearer {token}' }
+			baseURL: "http://127.0.0.1:8000/api/v1/",
+			headers: { Authorization: 'Bearer {token}', Accept: 'application/json' }
+		})
+		Vue.prototype.$login =  axios.create({
+			baseURL: "http://127.0.0.1:8000/api/v1/login",
+			headers: {Accept: 'application/json' }
+		})
+		Vue.prototype.$oauth =  axios.create({
+			baseURL: "http://127.0.0.1:8000/o/",
+			headers: {'Content-Type': 'multipart/form-data'	}
 		})
 	}
 })

@@ -1,16 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-//apps
-import Dashboard from '../views/apps/Dashboard.vue'
-
 //pages
-import Login from '../views/pages/authentication/Login.vue'
-import Login2 from '../views/pages/authentication/Login2.vue'
-import Register from '../views/pages/authentication/Register.vue'
-import ForgotPassword from '../views/pages/authentication/ForgotPassword.vue'
-import Profile from '../views/pages/Profile.vue'
+import Dashboard from '../views/pages/menu/Dashboard.vue'
+import Login from '../views/pages/auth/Login.vue'
+import Profile from '../views/pages/menu/Profile.vue'
 import NotFound from '../views/pages/NotFound.vue'
+
+import LogInApp from '../views/pages/auth/Login.vue'
 
 import layouts from '../layout'
 import store from '../store'
@@ -20,18 +17,25 @@ Vue.use(Router)
 
 const router = new Router({
 	mode: 'history',
-	//base: '/sub-path/',
+	//base: '/login',
 	routes: [
 		{
+			path: '/',
+			name: 'login',
+			component: LogInApp,
+			meta: {
+				layout: layouts.contenOnly
+			}
+		},
+		{
 			path: '/dashboard',
-			alias: '/dashboard',
 			name: 'dashboard',
 			component: Dashboard,
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
 				searchable: true,
-				tags: ['app']
+				tags: ['pages']
 			}
 		},
 		{
@@ -43,38 +47,6 @@ const router = new Router({
 				layout: layouts.navLeft,
 				searchable: true,
 				tags: ['pages']
-			}
-		},
-		{
-			path: '/login',
-			name: 'login',
-			component: Login,
-			meta: {
-				layout: layouts.contenOnly
-			}
-		},
-		{
-			path: '/',
-			name: 'login2',
-			component: Login2,
-			meta: {
-				layout: layouts.contenOnly
-			}
-		},
-		{
-			path: '/register',
-			name: 'register',
-			component: Register,
-			meta: {
-				layout: layouts.contenOnly
-			}
-		},
-		{
-			path: '/forgot-password',
-			name: 'forgot-password',
-			component: ForgotPassword,
-			meta: {
-				layout: layouts.contenOnly
 			}
 		},
 		{ 
@@ -128,30 +100,26 @@ const auth = {
 }
 
 router.beforeEach((to, from, next) => {
-	let authrequired = false
-	if(to && to.meta && to.meta.auth)
-		authrequired = true
-
-	//console.log('authrequired', authrequired, to.name)
+	let authrequired = to && to.meta && to.meta.auth
 
 	if(authrequired) {
 		if(auth.loggedIn()) {
 			if(to.name === 'login') {
-				window.location.href = '/'
+				window.location.href = '/dashboard'
 				return false
 			} else { 
 				next()
 			}
 		} else {
 			if(to.name !== 'login'){
-				window.location.href = '/login'
+				window.location.href = '/'
 				return false
 			}
 			next()
 		}
 	} else {
 		if(auth.loggedIn() && to.name === 'login'){
-			window.location.href = '/'
+			window.location.href = '/dashboard'
 			return false
 		} else {
 			next()
@@ -166,7 +134,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
 	setTimeout(()=>{
 		store.commit('setSplashScreen', false)
-	}, 500)
+	}, 900)
 })
 
 export default router
