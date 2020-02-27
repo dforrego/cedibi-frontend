@@ -144,19 +144,20 @@ export default {
 	},
 	computed: {},
 	methods: {},
-	mounted() {},
+	mounted() {
+		console.log(this.$route.params.user);
+	},
 	beforeDestroy() {},
 	components: {}
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/_variables';
+@import '../../../assets/scss/_variables';
 
 </style>
 
 <style lang="scss">
-.page-dashboard {}
 
 @media (max-width: 768px) {
 	.page-dashboard {

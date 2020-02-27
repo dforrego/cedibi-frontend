@@ -2,152 +2,75 @@
 	<vue-scroll class="page-profile" id="affix-container">
 		<div class="card-base card-shadow--medium identity" id="boundary">
 			<div class="cover"></div>
-			<!--<div class="username" v-affix="{parentid: 'affix-container', boundaryid: '', delay:600, offset:0, enable:() => affixEnabled}">-->
 			<div class="username">
 				<div class="cover-small"></div>
-				<div class="avatar-small"><img src="@/assets/images/avatar.jpg" alt="avatar"></div>
+				<div class="avatar-small"><img src="@/assets/images/avatar-2.jpg" alt="avatar"></div>
 				<span>{{username}}</span>
 				<div class="colors-box">
-					<div v-for="i in 5" :key="i" :class="{'color':true, 'active':colorActive}" :style="{'background':color}"></div>
+					<div v-for="i in 2" :key="i" :class="{'color':true, 'active':colorActive}" :style="{'background':color}"></div>
 				</div>
 			</div>
-			<div class="avatar"><img src="@/assets/images/avatar.jpg" alt="avatar"></div>
+			<div class="avatar"><img src="@/assets/images/avatar-2.jpg" alt="avatar"></div>
 			<img src="@/assets/images/cover-2.jpg" id="color-thief" class="color-thief" alt="profile cover">
 		</div>
 
 
-<el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
-    <el-tab-pane label="User" name="first"><div class="page-profile-edit">
+<el-tabs v-model="activeName" type="border-card">
+    <el-tab-pane label="Información del Usuario" name="first"><div class="page-profile-edit">
 
-		<el-form ref="form" :model="form" label-width="120px" >
-			<el-col>
+
+			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Username">
-						<el-input v-model="form.username"/>
-					</el-form-item>
+					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Nombre de Usuario</strong></span>
+					<hr>
+					<p class="data-user">{{data.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Email">
-						<el-input v-model="form.email" type="email"/>
-					</el-form-item>
+					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Correo Electrónico</strong></span>
+					<hr>
+					<p class="data-user">{{data.email}}</p>
 				</el-col>
-			</el-col>
-			<el-col>
+			</el-row>
+
+			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="First name">
-						<el-input v-model="form.firstName"/>
-					</el-form-item>
-				</el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Last name">
-						<el-input v-model="form.lastName"/>
-					</el-form-item>
-				</el-col>
-			</el-col>
-			<el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Birthday">
-						<el-date-picker type="date" placeholder="Pick a date" v-model="form.birthday" style="width: 100%;"></el-date-picker>
-					</el-form-item>
+					<i class="mdi mdi-alpha-n-box-outline mdi-24px"></i><span> <strong>Nombres</strong></span>
+					<hr>
+					<p class="data-user">{{data.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Gender">
-						<el-radio-group v-model="form.gender">
-							<el-radio label="Male" border></el-radio>
-							<el-radio label="Female" border></el-radio>
-						</el-radio-group>
-					</el-form-item>
+					<i class="mdi mdi-alpha-a-box-outline mdi-24px"></i> <span><strong>Apellidos</strong></span>
+					<hr>
+					<p class="data-user">{{data.email}}</p>
 				</el-col>
-			</el-col>
-			<el-col>
+			</el-row>
+
+			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Phone">
-						<el-input v-model="form.phone" placeholder="+xx xxx xxx xxxx"/>
-					</el-form-item>
+					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Rol</strong></span>
+					<hr>
+					<p class="data-user">{{data.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Website">
-						<el-input v-model="form.website" placeholder="https://"/>
-					</el-form-item>
+					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Departamento</strong></span>
+					<hr>
+					<p class="data-user">{{data.email}}</p>
 				</el-col>
-			</el-col>
-			<el-col>
+			</el-row>
+			
+			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Address">
-						<el-input v-model="form.address"/>
-					</el-form-item>
-				</el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Postal code">
-						<el-input v-model="form.postalCode"/>
-					</el-form-item>
-				</el-col>
-			</el-col>
-			<el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="City">
-						<el-input v-model="form.city"/>
-					</el-form-item>
+					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Fecha Último Acceso</strong></span>
+					<hr>
+					<p class="data-user">{{data.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Country">
-						<el-input v-model="form.country"/>
-					</el-form-item>
+					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong></strong></span>
+					<hr>
+					<p class="data-user">{{data.email}}</p>
 				</el-col>
-			</el-col>
-			<el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Hobbies">
-						<el-select
-							class="select-wide"
-							v-model="form.hobbies"
-							multiple
-							filterable
-							allow-create
-							default-first-option
-							placeholder="Choose tags for your hobbies">
-							<el-option
-							v-for="item in hobbies"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-							</el-option>
-						</el-select>
-					</el-form-item>
-				</el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<el-form-item label="Skills">
-						<el-select
-							class="select-wide"
-							v-model="form.skills"
-							multiple
-							filterable
-							allow-create
-							default-first-option
-							placeholder="Choose tags for your skills">
-							<el-option
-							v-for="item in skills"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-							</el-option>
-						</el-select>
-					</el-form-item>
-				</el-col>
-			</el-col>
-						
-			<el-col class="col-p">
-				<el-form-item label="About me">
-					<el-input type="textarea" v-model="form.aboutMe" autosize></el-input>
-				</el-form-item>
-			</el-col>
-			<el-col class="col-p">
-				<el-form-item>
-					<el-button type="primary" @click="onSubmit">Save</el-button>
-					<el-button>Cancel</el-button>
-				</el-form-item>
-			</el-col>
-		</el-form>
+			</el-row>
+		
 	</div></el-tab-pane>
   </el-tabs>
 
@@ -166,7 +89,7 @@ export default {
 			colorActive: false,
 			color: 'white',
 			affixEnabled: true,
-			form: {
+			data: {
 				username: 'aShenton',
 				email: 'ashenton@mail.com',
 				firstName: 'Aurora',
@@ -183,30 +106,6 @@ export default {
 				postalCode: '',
 				aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus posuere libero, nec convallis arcu ullamcorper a. Vestibulum diam neque, egestas scelerisque arcu a, fermentum ornare mauris. Ut venenatis vulputate maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur scelerisque quis turpis ac tempus. Quisque dolor dolor, fermentum nec magna eget, fringilla auctor lacus. Aenean sagittis est ac ligula pharetra, quis imperdiet ante dignissim. Ut vehicula nec nisl a pretium. Quisque faucibus auctor viverra. Sed ultricies convallis magna. In blandit eros id efficitur vulputate. Duis efficitur sollicitudin dui non vehicula. Nullam ut eros fermentum, dapibus metus non, accumsan neque. Mauris sed pellentesque felis. Suspendisse viverra risus sit amet congue consectetur.'
 			},
-			hobbies: [
-				{
-					value: 'Model building',
-					label: 'Model building'
-				}, {
-					value: 'Drawing',
-					label: 'Drawing'
-				}, {
-					value: 'Snowboarding',
-					label: 'Snowboarding'
-				}
-			],
-			skills: [
-				{
-					value: 'HTML',
-					label: 'HTML'
-				}, {
-					value: 'CSS',
-					label: 'CSS'
-				}, {
-					value: 'JavaScript',
-					label: 'JavaScript'
-				}
-			],
 			labelPosition: 'right',
 			activeName: 'first'
 		}
@@ -220,7 +119,7 @@ export default {
 			}
 		}
 	},
-	mounted() {
+	async mounted() {
 		var colorThief = new ColorThief();
 		setTimeout(()=>{
 			let rgb = colorThief.getColor(document.getElementById('color-thief'))
@@ -231,6 +130,18 @@ export default {
 
 		this.resizeAffixEnabled();
 		window.addEventListener('resize', this.resizeAffixEnabled);
+
+		let response = await this.$login.post('', {
+			login: this.username,
+			password: this.password
+		})
+		console.log(response);
+		if (response.data.coderesponse === 0){
+			this.$store.commit('setLogin')
+			this.$router.push({ name: 'dashboard', params: { user: response.data.user } });
+		} else {
+			alert("Error login");
+		}
 	},
 	beforeDestroy() {
 		window.removeEventListener('resize', this.resizeAffixEnabled);
@@ -242,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/_variables';
+@import '../../../assets/scss/_variables';
 
 .page-profile {
 	overflow: auto;
@@ -259,7 +170,7 @@ export default {
 			left: 0;
 			right: 0;
 			bottom: 0;
-			background-image: url('../../assets/images/cover-2.jpg');
+			background-color:#82b0d4;
 			background-position: 50%;
 			background-size: cover;
 			background-repeat: no-repeat;
@@ -299,7 +210,7 @@ export default {
 				border: 4px solid white;
 				opacity: 0;
 				top: 0px;
-				background-image: url('../../assets/images/cover-2.jpg');
+				background-image: url('../../../assets/images/cover-2.jpg');
 				background-position: 50%;
 				background-size: cover;
 				background-repeat: no-repeat;
@@ -363,10 +274,7 @@ export default {
 						margin-right: 0;
 					}
 
-					&:nth-child(2) { opacity: .8; }
-					&:nth-child(3) { opacity: .6; }
-					&:nth-child(4) { opacity: .4; }
-					&:nth-child(5) { opacity: .2; }
+					
 				}
 			}
 		}
@@ -399,6 +307,14 @@ export default {
 	.info {
 		padding: 24px 32px;
 	}
+}
+
+i.mdi {
+	color: #b1b1b1;
+}
+
+p.data-user {
+	padding-left: 10px;
 }
 
 @media (max-width: 768px) {
