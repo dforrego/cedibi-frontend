@@ -1,11 +1,13 @@
 <template>
 	<div class="footer flex align-center justify-space-between" :class="{'above':position === 'above'}">
-		<div><a href="https://pragmatic.ddmweb.it/docs/#/" target="_blank"><span class="hidden-xs-only">Documentation</span><span class="hidden-sm-and-up">Docs.</span></a></div>
 		<div>
-			<span>Hecho por <a href="https://ddmweb.it" target="_blank">me</a></span>
-			<a class="el-button buy-btn animated fadeInRight el-button--default el-button--small is-plain" href="https://1.envato.market/BkJGL?ref=Linko91&utm_source=pragmaticdemo" target="_blank">
-				<i class="mdi mdi-cart"></i> Purchase <span class="hidden-xs-only">Pragmatic</span>
+			<a href="#" target="_blank"> 
+				<span>GitHub</span>
+				<i class="mdi mdi-github-circle" style="color:#5f8fdf;"></i>
 			</a>
+			</div>
+		<div>
+			<span>Realizado por <a href="#" target="_blank">Andrés Martínez - Diego Orrego</a></span>
 		</div>
 	</div>
 </template>

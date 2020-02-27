@@ -2,7 +2,7 @@
 	<div class="toolbar flex align-center justify-space-between">
 		<div class="box-left box grow flex">
 			<button @click="toggleSidebar" v-if="menuBurger !== 'right'" class="toggle-sidebar card-base card-shadow--small">
-				<i class="mdi mdi-menu"></i>
+				<i class="mdi mdi-menu"></i>aa
 			</button>
 
 			<img class="logo-mini" src="@/assets/images/logo.svg" alt="logo"/>
@@ -10,39 +10,14 @@
 			<search class="hidden-xs-only"></search>
 		</div>
 		<div class="box-right flex align-center pl-10">
-			<el-dropdown trigger="click" @command="onCommandLang">
-				<span class="el-dropdown-link">
-					<i class="flag-icon" :class="{['flag-icon-'+lang]:true}"></i>
-				</span>
-				<el-dropdown-menu slot="dropdown">
-					<el-dropdown-item command="us"><i class="flag-icon flag-icon-us mr-15"></i>English</el-dropdown-item>
-					<el-dropdown-item command="it"><i class="flag-icon flag-icon-it mr-15"></i>Italian</el-dropdown-item>
-					<el-dropdown-item command="fr"><i class="flag-icon flag-icon-fr mr-15"></i>French</el-dropdown-item>
-					<el-dropdown-item command="de"><i class="flag-icon flag-icon-de mr-15"></i>German</el-dropdown-item>
-					<el-dropdown-item command="es"><i class="flag-icon flag-icon-es mr-15"></i>Spanish</el-dropdown-item>
-					<el-dropdown-item command="cn"><i class="flag-icon flag-icon-cn mr-15"></i>Chinese</el-dropdown-item>
-					<el-dropdown-item command="jp"><i class="flag-icon flag-icon-jp mr-15"></i>Japanese</el-dropdown-item>
-					<el-dropdown-item command="/multi-language"><i class="mdi mdi-translate mr-15"></i>Read the docs</el-dropdown-item>
-				</el-dropdown-menu>
-			</el-dropdown>
-			<button class="fullscreen-button" @click="toggleFullscreen">
-				<i class="mdi mdi-fullscreen" v-if="!fullscreen"></i>
-				<i class="mdi mdi-fullscreen-exit" v-if="fullscreen"></i>
-			</button>
-			<el-popover ref="popover" placement="bottom" :width="popoverWidth" trigger="click">
-				<notification-box></notification-box>
-			</el-popover>
-			<el-badge :is-dot="true" class="notification-icon-badge">
-				<el-button v-popover:popover icon="mdi mdi-bell" class="notification-icon"></el-button>
-			</el-badge>
-			<span class="username"><router-link to="/profile">Aurora Shenton</router-link></span>
+			<span class="username">Name Company</span>
 			<el-dropdown trigger="click" @command="onCommand">
 				<span class="el-dropdown-link">
-					<img src="../assets/images/avatar.jpg" class="avatar" alt="avatar">
+					<img src="../assets/images/avatar-2.jpg" class="avatar" alt="avatar">
 				</span>
 				<el-dropdown-menu slot="dropdown">
-					<el-dropdown-item command="/profile"><i class="mdi mdi-account mr-10"></i> Profile</el-dropdown-item>
-					<el-dropdown-item command="/logout" divided><i class="mdi mdi-logout mr-10"></i> Logout</el-dropdown-item>
+					<el-dropdown-item command="/profile"><i class="mdi mdi-account mr-10"></i> Mi Perfil</el-dropdown-item>
+					<el-dropdown-item command="/logout" divided><i class="mdi mdi-logout mr-10"></i> Cerrar Sesión</el-dropdown-item>
 				</el-dropdown-menu>
 			</el-dropdown>
 

@@ -5,7 +5,7 @@
 		popper-class="search-box-popper card-base card-shadow--small"
 		v-model="search"
 		:fetch-suggestions="querySearch"
-		placeholder="Search..."
+		placeholder="Buscar..."
 		:trigger-on-focus="true"
 		clearable
 		prefix-icon="el-icon-search"
