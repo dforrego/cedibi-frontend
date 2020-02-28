@@ -31,7 +31,7 @@
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title">Tablero 3</span>
 			</el-menu-item>
 		</el-submenu>
-		<el-menu-item index="/logout">
+		<el-menu-item @click="logout">
 				<i class="mdi mdi-exit-to-app"></i><span slot="title">Cerrar Sesión</span>
 		</el-menu-item>
 
@@ -63,6 +63,11 @@ export default {
 		},
 		setLink(path) {
 			this.activeLink = path
+		},
+		logout() {
+			this.$store.commit("setLogout")
+			this.$session.destroy()
+			this.$router.push('/')
 		}
 	},
 	created() {
