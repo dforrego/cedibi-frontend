@@ -13,6 +13,7 @@
   "dependencies": {
     "@mdi/font": "^3.6.95",
     "animate.css": "^3.7.0",
+    "axios": "^0.19.2",
     "color-thief-browser": "^2.0.2",
     "detect-browser": "^2.5.1",
     "element-ui": "^2.7.2",
@@ -31,6 +32,7 @@
     "vue-perfect-scrollbar": "^0.1.0",
     "vue-resize": "^0.4.5",
     "vue-router": "^3.0.6",
+    "vue-session": "^1.0.0",
     "vuebar": "0.0.20",
     "vuex": "^3.1.0",
     "vuex-persistedstate": "^2.5.4"
