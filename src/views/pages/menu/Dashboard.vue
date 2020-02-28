@@ -145,7 +145,7 @@ export default {
 	computed: {},
 	methods: {},
 	mounted() {
-		console.log(this.$route.params.user);
+		console.log(this.$session.getAll())
 	},
 	beforeDestroy() {},
 	components: {}

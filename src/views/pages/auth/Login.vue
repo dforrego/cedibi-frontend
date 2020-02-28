@@ -49,6 +49,17 @@ export default {
 			password: ''
 		}
 	},
+	mounted() {
+		let sid = this.$session.id() 
+		console.log(sid)
+		if (sid) {
+			this.$store.commit('setLogin');
+			this.$router.push({ 
+					name: 'dashboard'
+			});
+		}
+	
+	},
 	methods: {
 		login: async function () {
 			let response = await this.$login.post('', {
@@ -70,15 +81,15 @@ export default {
 
 			let response = await this.$oauth.post('token/', formData);
 			if (response.data.access_token){
+				this.$session.start()
 				this.$store.commit('setLogin');
 				this.$store.commit('setGlobalData', {
 					object1: response.data.access_token, 
 					object2: response.data.expires_in
 				});
-
+				this.$session.set('profile', 123);
 				this.$router.push({ 
-					name: 'dashboard', 
-					params: { user: response.data.user } 
+					name: 'dashboard'
 				});
 			}
 		}

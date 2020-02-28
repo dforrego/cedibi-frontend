@@ -23,6 +23,7 @@ import VueResize from 'vue-resize'
 import 'vue-resize/dist/vue-resize.css'
 //import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import 'flag-icon-css/css/flag-icon.css'
+import VueSession from 'vue-session'
 
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ ═ *\
@@ -73,7 +74,7 @@ Vue.config.productionTip = false
 Vue.use(VueResize)
 Vue.use(Fullscreen)
 Vue.use(VueI18n)
-
+Vue.use(VueSession)
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ *\
 |  CORE COMPONENTS  |
