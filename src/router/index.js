@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import session from 'vue-session'
 
 //pages
 import Dashboard from '../views/pages/menu/Dashboard.vue'
@@ -92,6 +93,9 @@ const l = {
 //insert here login logic
 const auth = {
 	loggedIn() {
+		if (Vue.prototype.$session.id()) {
+			store.commit('setLogin')
+		}
 		return store.getters.isLogged
 	},
 	logout() {
