@@ -20,7 +20,7 @@
 						</div>
 					</div>
 
-					<component :is="asyncComponent" :type="'line'" :options='{ width: "100%", height: 80 }' :data="[1, 3, 2, 4, 4, 9, 3, 4, 6, 5, 4, 6, 9, 8, 11, 12, 13, 12, 12, 14].toString()"/>
+					<!-- <component :is="asyncComponent" :type="'line'" :options='{ width: "100%", height: 80 }' :data="[1, 3, 2, 4, 4, 9, 3, 4, 6, 5, 4, 6, 9, 8, 11, 12, 13, 12, 12, 14].toString()"/> -->
 				
 				</div>
 			</el-col>
@@ -145,7 +145,6 @@ export default {
 	computed: {},
 	methods: {},
 	mounted() {
-		console.log(this.$session.getAll())
 	},
 	beforeDestroy() {},
 	components: {}
