@@ -23,12 +23,12 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-identifier mdi-24px"></i> <span> <strong>Nombre de Usuario</strong></span>
 					<hr>
-					<p class="data-user">{{profile.user.username}}</p>
+					<p class="data-user">{{data.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Correo Electrónico</strong></span>
 					<hr>
-					<p class="data-user">{{profile.user.email}}</p>
+					<p class="data-user">{{data.email}}</p>
 				</el-col>
 			</el-row>
 
