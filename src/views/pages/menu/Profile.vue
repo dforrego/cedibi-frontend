@@ -21,20 +21,20 @@
 
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Nombre de Usuario</strong></span>
+					<i class="mdi mdi-identifier mdi-24px"></i> <span> <strong>Nombre de Usuario</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
+					<p class="data-user">{{profile.user.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Correo Electrónico</strong></span>
 					<hr>
-					<p class="data-user">{{data.email}}</p>
+					<p class="data-user">{{profile.user.email}}</p>
 				</el-col>
 			</el-row>
 
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-alpha-n-box-outline mdi-24px"></i><span> <strong>Nombres</strong></span>
+					<i class="mdi mdi-alpha-n-box-outline mdi-24px"></i> <span> <strong>Nombres</strong></span>
 					<hr>
 					<p class="data-user">{{data.first_name}}</p>
 				</el-col>
@@ -47,12 +47,12 @@
 
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Rol</strong></span>
+					<i class="mdi mdi-account-tie-outline mdi-24px"></i> <span> <strong>Rol</strong></span>
 					<hr>
 					<p class="data-user">{{data.profile.rol.name}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Departamento</strong></span>
+					<i class="mdi mdi-account-group-outline mdi-24px"></i> <span><strong>Departamento</strong></span>
 					<hr>
 					<p class="data-user">-</p>
 				</el-col>
@@ -60,7 +60,7 @@
 			
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Fecha Último Acceso</strong></span>
+					<i class="mdi mdi-calendar-check mdi-24px"></i> <span> <strong>Fecha Último Acceso</strong></span>
 					<hr>
 					<p class="data-user">-</p>
 				</el-col>
@@ -121,7 +121,6 @@ export default {
 
 		this.resizeAffixEnabled();
 		window.addEventListener('resize', this.resizeAffixEnabled);
-
 		//---
 		let prof = this.$session.get('profile');
 		let head = {
@@ -133,7 +132,7 @@ export default {
 		if (response.data.coderesponse === 0){
 			this.data = response.data.user
 		} else {
-			alert("Error login");
+			alert("Error profile");
 		}
 	},
 	beforeDestroy() {
@@ -155,7 +154,7 @@ export default {
 		margin-bottom: 20px;
 		position: relative;
 		width: 100%;
-		height: 370px;
+		height: 300px;
 
 		.cover {
 			position: absolute;

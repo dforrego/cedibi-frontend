@@ -47,18 +47,19 @@ import i18n_messages from './i18n.json'
 
 import axios from 'axios'
 
+
 Vue.use({
 	install (Vue) {
 		Vue.prototype.$axios =  axios.create({
-			baseURL: "http://127.0.0.1:8000/api/v1/",
-			headers: { Authorization: 'Bearer {token}', Accept: 'application/json' }
+			baseURL: "http://192.168.1.13:8000/api/v1/",
+			headers: {'Content-Type': 'application/json', Accept: 'application/json' }
 		})
 		Vue.prototype.$login =  axios.create({
-			baseURL: "http://127.0.0.1:8000/api/v1/login",
-			headers: {Accept: 'application/json' }
+			baseURL: "http://192.168.1.13:8000/api/v1/login",
+			headers: {'Content-Type': 'application/json', Accept: 'application/json' }
 		})
 		Vue.prototype.$oauth =  axios.create({
-			baseURL: "http://127.0.0.1:8000/o/",
+			baseURL: "http://192.168.1.13:8000/o/",
 			headers: {'Content-Type': 'multipart/form-data'	}
 		})
 	}
