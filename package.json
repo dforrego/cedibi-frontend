@@ -21,6 +21,7 @@
     "es7-shim": "^6.0.0",
     "flag-icon-css": "^3.3.0",
     "flex.box": "^3.4.4",
+    "highcharts": "^8.0.0",
     "lodash": "^4.17.11",
     "moment-timezone": "^0.5.23",
     "perfect-scrollbar": "^1.4.0",
