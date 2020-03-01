@@ -5,7 +5,7 @@
 			<div class="username">
 				<div class="cover-small"></div>
 				<div class="avatar-small"><img src="@/assets/images/avatar-2.jpg" alt="avatar"></div>
-				<span>{{username}}</span>
+				<span>{{data.first_name}} {{data.last_name}}</span>
 				<div class="colors-box">
 					<div v-for="i in 2" :key="i" :class="{'color':true, 'active':colorActive}" :style="{'background':color}"></div>
 				</div>
@@ -36,12 +36,12 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-alpha-n-box-outline mdi-24px"></i><span> <strong>Nombres</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
+					<p class="data-user">{{data.first_name}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-alpha-a-box-outline mdi-24px"></i> <span><strong>Apellidos</strong></span>
 					<hr>
-					<p class="data-user">{{data.email}}</p>
+					<p class="data-user">{{data.last_name}}</p>
 				</el-col>
 			</el-row>
 
@@ -49,12 +49,12 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Rol</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
+					<p class="data-user">{{data.profile.rol.name}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Departamento</strong></span>
 					<hr>
-					<p class="data-user">{{data.email}}</p>
+					<p class="data-user">-</p>
 				</el-col>
 			</el-row>
 			
@@ -62,12 +62,7 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Fecha Último Acceso</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
-				</el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong></strong></span>
-					<hr>
-					<p class="data-user">{{data.email}}</p>
+					<p class="data-user">-</p>
 				</el-col>
 			</el-row>
 		
@@ -90,21 +85,17 @@ export default {
 			color: 'white',
 			affixEnabled: true,
 			data: {
-				username: 'aShenton',
-				email: 'ashenton@mail.com',
-				firstName: 'Aurora',
-				lastName: 'Shenton',
-				birthday: '1991-02-13T23:00:00.000Z',
-				phone: '',
-				website: '',
-				hobbies: [],
-				skills: ['JavaScript', 'HTML', 'CSS', 'Vue.js'],
-				gender: 'Female',
-				address: '',
-				city: '',
-				country: '',
-				postalCode: '',
-				aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus posuere libero, nec convallis arcu ullamcorper a. Vestibulum diam neque, egestas scelerisque arcu a, fermentum ornare mauris. Ut venenatis vulputate maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur scelerisque quis turpis ac tempus. Quisque dolor dolor, fermentum nec magna eget, fringilla auctor lacus. Aenean sagittis est ac ligula pharetra, quis imperdiet ante dignissim. Ut vehicula nec nisl a pretium. Quisque faucibus auctor viverra. Sed ultricies convallis magna. In blandit eros id efficitur vulputate. Duis efficitur sollicitudin dui non vehicula. Nullam ut eros fermentum, dapibus metus non, accumsan neque. Mauris sed pellentesque felis. Suspendisse viverra risus sit amet congue consectetur.'
+				id: 0,
+				sername: '',
+				first_name: '',
+				last_name: '',
+				email: '',
+				profile: {
+					rol: {
+						name: '',
+						code: 0
+					}
+				}
 			},
 			labelPosition: 'right',
 			activeName: 'first'
@@ -131,14 +122,16 @@ export default {
 		this.resizeAffixEnabled();
 		window.addEventListener('resize', this.resizeAffixEnabled);
 
-		let response = await this.$login.post('', {
-			login: this.username,
-			password: this.password
-		})
-		console.log(response);
+		//---
+		let prof = this.$session.get('profile');
+		let head = {
+			headers : { 
+			Authorization : 'Bearer ' + this.$store.state.poo.object1
+		}};
+		let response = await this.$axios.get('users/' + prof.id, head)
+		console.log("profile", response);
 		if (response.data.coderesponse === 0){
-			this.$store.commit('setLogin')
-			this.$router.push({ name: 'dashboard', params: { user: response.data.user } });
+			this.data = response.data.user
 		} else {
 			alert("Error login");
 		}
