@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -64,7 +65,20 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-
+		getOauth: async function (context) {
+			const formData = new FormData();
+			formData.append('grant_type', context.state.toa.param1)
+			formData.append('client_id', context.state.toa.param2)
+			formData.append('client_secret', context.state.toa.param3)
+			let response = await Vue.prototype.$oauth.post('token/', formData)
+			if(response.data.access_token) { 
+				context.commit('setLogin');
+				context.commit('setGlobalData', {
+					object1: response.data.access_token, 
+					object2: response.data.expires_in
+				})
+			}
+		}
 	},
 	getters: {
 		layout(state, getters) {
