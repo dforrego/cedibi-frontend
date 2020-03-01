@@ -21,7 +21,7 @@
 			<template slot="title">
 				<i class="mdi mdi-bulletin-board"></i><span>Tableros</span>
 			</template>
-			<el-menu-item index="/logout">
+			<el-menu-item index="/board1">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title">Tablero 1</span>
 			</el-menu-item>
 			<el-menu-item index="/logout">
@@ -82,9 +82,7 @@ export default {
 		//console.log('this.$router.currentRoute.path', this.$router.currentRoute.path)
 	},
 	mounted() {
-		if(this.$session.id()) {
-			this.$store.dispatch('getOauth')
-		}
+		
 	}
 }
 </script>
