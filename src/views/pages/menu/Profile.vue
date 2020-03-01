@@ -21,53 +21,51 @@
 
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Nombre de Usuario</strong></span>
+					<i class="mdi mdi-identifier mdi-24px"></i> <span> <strong>Nombre de Usuario</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
+					<p class="data-user">{{profile.user.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Correo Electrónico</strong></span>
 					<hr>
-					<p class="data-user">{{data.email}}</p>
+					<p class="data-user">{{profile.user.email}}</p>
 				</el-col>
 			</el-row>
 
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-alpha-n-box-outline mdi-24px"></i><span> <strong>Nombres</strong></span>
+					<i class="mdi mdi-alpha-n-box-outline mdi-24px"></i> <span> <strong>Nombres</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
+					<p class="data-user">{{profile.user.first_name}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-alpha-a-box-outline mdi-24px"></i> <span><strong>Apellidos</strong></span>
 					<hr>
-					<p class="data-user">{{data.email}}</p>
+					<p class="data-user">{{profile.user.last_name}}</p>
 				</el-col>
 			</el-row>
 
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Rol</strong></span>
+					<i class="mdi mdi-account-tie-outline mdi-24px"></i> <span> <strong>Rol</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
+					<p class="data-user">{{profile.rol.name}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Departamento</strong></span>
+					<i class="mdi mdi-account-group-outline mdi-24px"></i> <span><strong>Departamento</strong></span>
 					<hr>
-					<p class="data-user">{{data.email}}</p>
+					<p class="data-user"> - </p>
 				</el-col>
 			</el-row>
 			
 			<el-row :gutter="20">
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-identifier mdi-24px"></i><span> <strong>Fecha Último Acceso</strong></span>
+					<i class="mdi mdi-calendar-check mdi-24px"></i> <span> <strong>Fecha Último Acceso</strong></span>
 					<hr>
-					<p class="data-user">{{data.username}}</p>
+					<p class="data-user"> - </p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong></strong></span>
-					<hr>
-					<p class="data-user">{{data.email}}</p>
+					
 				</el-col>
 			</el-row>
 		
@@ -89,22 +87,18 @@ export default {
 			colorActive: false,
 			color: 'white',
 			affixEnabled: true,
-			data: {
-				username: 'aShenton',
-				email: 'ashenton@mail.com',
-				firstName: 'Aurora',
-				lastName: 'Shenton',
-				birthday: '1991-02-13T23:00:00.000Z',
-				phone: '',
-				website: '',
-				hobbies: [],
-				skills: ['JavaScript', 'HTML', 'CSS', 'Vue.js'],
-				gender: 'Female',
-				address: '',
-				city: '',
-				country: '',
-				postalCode: '',
-				aboutMe: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus posuere libero, nec convallis arcu ullamcorper a. Vestibulum diam neque, egestas scelerisque arcu a, fermentum ornare mauris. Ut venenatis vulputate maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur scelerisque quis turpis ac tempus. Quisque dolor dolor, fermentum nec magna eget, fringilla auctor lacus. Aenean sagittis est ac ligula pharetra, quis imperdiet ante dignissim. Ut vehicula nec nisl a pretium. Quisque faucibus auctor viverra. Sed ultricies convallis magna. In blandit eros id efficitur vulputate. Duis efficitur sollicitudin dui non vehicula. Nullam ut eros fermentum, dapibus metus non, accumsan neque. Mauris sed pellentesque felis. Suspendisse viverra risus sit amet congue consectetur.'
+			profile: {
+				user: {
+					id: 0,
+					sername: '',
+					first_name: '',
+					last_name: '',
+					email: ''
+				},
+				rol: {
+					name: '',
+					code: 0
+				}
 			},
 			labelPosition: 'right',
 			activeName: 'first'
@@ -130,17 +124,18 @@ export default {
 
 		this.resizeAffixEnabled();
 		window.addEventListener('resize', this.resizeAffixEnabled);
-
-		let response = await this.$login.post('', {
-			login: this.username,
-			password: this.password
-		})
-		console.log(response);
+		//---
+		let prof = this.$session.get('profile');
+		let head = {
+			headers : { 
+			Authorization : 'Bearer ' + this.$store.state.poo.object1
+		}};
+		let response = await this.$axios.get('users/' + prof.id, head)
+		console.log("profile", response);
 		if (response.data.coderesponse === 0){
-			this.$store.commit('setLogin')
-			this.$router.push({ name: 'dashboard', params: { user: response.data.user } });
+			this.profile = response.data.user
 		} else {
-			alert("Error login");
+			alert("Error profile");
 		}
 	},
 	beforeDestroy() {
@@ -162,7 +157,7 @@ export default {
 		margin-bottom: 20px;
 		position: relative;
 		width: 100%;
-		height: 370px;
+		height: 300px;
 
 		.cover {
 			position: absolute;
