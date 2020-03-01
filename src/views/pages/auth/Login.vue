@@ -68,12 +68,12 @@ export default {
 			})
 			console.log(response);
 			if (response.data.coderesponse === 0){
-				await this.oauth();
+				await this.oauth(response.data.user);
 			} else {
 				alert("Error login");
 			}
 		},
-		oauth: async function() {
+		oauth: async function(data) {
 			const formData = new FormData();
 			formData.append('grant_type', this.$store.state.toa.param1);
 			formData.append('client_id', this.$store.state.toa.param2);
@@ -87,7 +87,7 @@ export default {
 					object1: response.data.access_token, 
 					object2: response.data.expires_in
 				});
-				this.$session.set('profile', 123);
+				this.$session.set('profile', data);
 				this.$router.push({ 
 					name: 'dashboard'
 				});
