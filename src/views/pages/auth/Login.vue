@@ -73,7 +73,7 @@ export default {
 				alert("Error login");
 			}
 		},
-		oauth: async function(data) {
+		oauth: async function(profile) {
 			const formData = new FormData();
 			formData.append('grant_type', this.$store.state.toa.param1);
 			formData.append('client_id', this.$store.state.toa.param2);
@@ -87,7 +87,7 @@ export default {
 					object1: response.data.access_token, 
 					object2: response.data.expires_in
 				});
-				this.$session.set('profile', data);
+				this.$session.set('profile', profile);
 				this.$router.push({ 
 					name: 'dashboard'
 				});

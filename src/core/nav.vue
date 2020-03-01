@@ -82,7 +82,9 @@ export default {
 		//console.log('this.$router.currentRoute.path', this.$router.currentRoute.path)
 	},
 	mounted() {
-		//console.log('nav component mounted')				
+		if(this.$session.id()) {
+			this.$store.dispatch('getOauth')
+		}
 	}
 }
 </script>
