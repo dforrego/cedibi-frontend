@@ -4,12 +4,10 @@ import session from 'vue-session'
 
 //pages
 import Dashboard from '../views/pages/menu/Dashboard.vue'
-import Login from '../views/pages/auth/Login.vue'
+import Board1 from '../views/pages/menu/Board1.vue'
 import Profile from '../views/pages/menu/Profile.vue'
 import NotFound from '../views/pages/NotFound.vue'
-
 import LogInApp from '../views/pages/auth/Login.vue'
-
 import layouts from '../layout'
 import store from '../store'
 
@@ -32,6 +30,17 @@ const router = new Router({
 			path: '/dashboard',
 			name: 'dashboard',
 			component: Dashboard,
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: true,
+				tags: ['pages']
+			}
+		},
+		{
+			path: '/board1',
+			name: 'board1',
+			component: Board1,
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
