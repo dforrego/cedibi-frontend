@@ -5,7 +5,7 @@
 			<div class="username">
 				<div class="cover-small"></div>
 				<div class="avatar-small"><img src="@/assets/images/avatar-2.jpg" alt="avatar"></div>
-				<span>{{username}}</span>
+				<span>{{data.first_name}} {{data.last_name}}</span>
 				<div class="colors-box">
 					<div v-for="i in 2" :key="i" :class="{'color':true, 'active':colorActive}" :style="{'background':color}"></div>
 				</div>
@@ -23,12 +23,12 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-identifier mdi-24px"></i> <span> <strong>Nombre de Usuario</strong></span>
 					<hr>
-					<p class="data-user">{{profile.user.username}}</p>
+					<p class="data-user">{{data.username}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-email-outline mdi-24px"></i> <span><strong>Correo Electrónico</strong></span>
 					<hr>
-					<p class="data-user">{{profile.user.email}}</p>
+					<p class="data-user">{{data.email}}</p>
 				</el-col>
 			</el-row>
 
@@ -36,12 +36,12 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-alpha-n-box-outline mdi-24px"></i> <span> <strong>Nombres</strong></span>
 					<hr>
-					<p class="data-user">{{profile.user.first_name}}</p>
+					<p class="data-user">{{data.first_name}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-alpha-a-box-outline mdi-24px"></i> <span><strong>Apellidos</strong></span>
 					<hr>
-					<p class="data-user">{{profile.user.last_name}}</p>
+					<p class="data-user">{{data.last_name}}</p>
 				</el-col>
 			</el-row>
 
@@ -49,12 +49,12 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-account-tie-outline mdi-24px"></i> <span> <strong>Rol</strong></span>
 					<hr>
-					<p class="data-user">{{profile.rol.name}}</p>
+					<p class="data-user">{{data.profile.rol.name}}</p>
 				</el-col>
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-account-group-outline mdi-24px"></i> <span><strong>Departamento</strong></span>
 					<hr>
-					<p class="data-user"> - </p>
+					<p class="data-user">-</p>
 				</el-col>
 			</el-row>
 			
@@ -62,10 +62,7 @@
 				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
 					<i class="mdi mdi-calendar-check mdi-24px"></i> <span> <strong>Fecha Último Acceso</strong></span>
 					<hr>
-					<p class="data-user"> - </p>
-				</el-col>
-				<el-col :span="12" :md="12" :sm="24" :xs="24" class="col-p">
-					
+					<p class="data-user">-</p>
 				</el-col>
 			</el-row>
 		
@@ -87,17 +84,17 @@ export default {
 			colorActive: false,
 			color: 'white',
 			affixEnabled: true,
-			profile: {
-				user: {
-					id: 0,
-					sername: '',
-					first_name: '',
-					last_name: '',
-					email: ''
-				},
-				rol: {
-					name: '',
-					code: 0
+			data: {
+				id: 0,
+				sername: '',
+				first_name: '',
+				last_name: '',
+				email: '',
+				profile: {
+					rol: {
+						name: '',
+						code: 0
+					}
 				}
 			},
 			labelPosition: 'right',
@@ -133,7 +130,7 @@ export default {
 		let response = await this.$axios.get('users/' + prof.id, head)
 		console.log("profile", response);
 		if (response.data.coderesponse === 0){
-			this.profile = response.data.user
+			this.data = response.data.user
 		} else {
 			alert("Error profile");
 		}
