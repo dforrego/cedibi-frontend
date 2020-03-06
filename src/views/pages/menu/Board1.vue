@@ -81,8 +81,9 @@
 				</div>
 			</el-col>
 
+            <component-comments :board="1" :user="2" /> 
 
-            <el-col :xs="24" :sm="12" :md="12" :lg="24" :xl="24" class="mb-30">
+            <!-- <el-col :xs="24" :sm="12" :md="12" :lg="24" :xl="24" class="mb-30">
                 <div class="card-base card-shadow--medium mx-20" v-loading="!asyncComponent">
                     <el-collapse v-model="activeNames" @change="handleChange" class="ml-20">
                     <el-collapse-item title="Nuevo comentario" name="1" class="mr-20">
@@ -139,76 +140,30 @@
                         
                     </el-pagination>
                 </div>
-             </el-col>
+             </el-col> -->
 		</el-row>
 	</vue-scroll>
 </template>
 
 <script>
+
+import componentComments from '../../../components/Comments.vue'
+
 export default {
     data() {
         return {
              activeNames: ['1'],
-            dataTotal: [],
-            page: {
-                total: 0,
-                count: 5,
-                size: 3,
-                current: 1
-            },
             asyncComponent:true,
-            tableData: [],
-            form: {
-                comment: ''
-            }
+            tableData: []
         }
     },
     async mounted() {
         if(this.$session.id()) {
 			await this.$store.dispatch('getOauth')
 		}
-        await this.getComments()
     },
-    methods: {
-        changePage: function () {
-            this.tableData = this.dataTotal.slice((this.page.current-1)*this.page.size, this.page.current*this.page.size)
-        },
-        getComments: async function () {
-            let head = {
-                headers : { 
-                Authorization : 'Bearer ' + this.$store.state.poo.object1
-            }}
-            let getComments = await this.$axios.get('boards/1/comments', head)
-            this.dataTotal = getComments.data.comments
-            this.page.total = this.dataTotal.length || 0
-            
-            if (this.page.total > 0) {
-                this.tableData = this.dataTotal.slice(0,5)
-                this.page.other = Math.ceil(this.page.total / this.page.size)
-            }
-        },
-        onSubmit: async function () {
-            let head = {
-                headers : { 
-                Authorization : 'Bearer ' + this.$store.state.poo.object1
-            }}
-            this.asyncComponent = false
-            let response = await this.$axios.post('boards/1/comments', {
-                "message": this.form.comment,
-                "board": 1,
-	            "user": 1
-            }, head)
-            
-            if(response.data) {
-                this.form.comment = ''
-                this.getComments()
-            }
-            this.asyncComponent = true
-
-        },
-         handleChange(val) {
-        
-      }
+    components: {
+        componentComments
     }
 }
 </script>
