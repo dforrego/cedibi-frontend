@@ -25,6 +25,7 @@
     "moment-timezone": "^0.5.23",
     "perfect-scrollbar": "^1.4.0",
     "v-click-outside": "^1.0.5",
+    "vee-validate": "^3.2.5",
     "vue": "^2.6.10",
     "vue-float-label": "^1.6.1",
     "vue-fullscreen": "^2.1.5",

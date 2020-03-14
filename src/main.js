@@ -24,6 +24,9 @@ import 'vue-resize/dist/vue-resize.css'
 //import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import 'flag-icon-css/css/flag-icon.css'
 import VueSession from 'vue-session'
+import { ValidationObserver, ValidationProvider, extend, localize } from 'vee-validate';
+import en from 'vee-validate/dist/locale/en.json';
+import * as rules from 'vee-validate/dist/rules';
 
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ ═ *\
@@ -76,6 +79,16 @@ Vue.use(VueResize)
 Vue.use(Fullscreen)
 Vue.use(VueI18n)
 Vue.use(VueSession)
+// install rules and localization
+Object.keys(rules).forEach(rule => {
+	extend(rule, rules[rule]);
+  });
+  
+  localize('en', en);
+  
+  // Install components globally
+  Vue.component('ValidationObserver', ValidationObserver);
+  Vue.component('ValidationProvider', ValidationProvider);
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ *\
 |  CORE COMPONENTS  |
