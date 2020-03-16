@@ -2,7 +2,7 @@
 	<div class="toolbar flex align-center justify-space-between">
 		<div class="box-left box grow flex">
 			<button @click="toggleSidebar" v-if="menuBurger !== 'right'" class="toggle-sidebar card-base card-shadow--small">
-				<i class="mdi mdi-menu"></i>aa
+				<i class="mdi mdi-menu"></i>
 			</button>
 
 			<img class="logo-mini" src="@/assets/images/logo.svg" alt="logo"/>
@@ -10,7 +10,7 @@
 			<search class="hidden-xs-only"></search>
 		</div>
 		<div class="box-right flex align-center pl-10">
-			<span class="username">Name Company</span>
+			<span class="username">{{company.name}}</span>
 			<el-dropdown trigger="click" @command="onCommand">
 				<span class="el-dropdown-link">
 					<img src="../assets/images/avatar-2.jpg" class="avatar" alt="avatar">
@@ -39,7 +39,12 @@ export default {
 		return {
 			popoverWidth: 300,
 			fullscreen: false,
-			lang: 'us'
+			lang: 'us',
+			company: {
+				name:"",
+				nit: "",
+				logo:""
+			}
 		}
 	},
 	methods: {
@@ -77,6 +82,9 @@ export default {
 		this.fullscreen = this.$fullscreen.getState()
 		this.resizePopoverWidth();
 		window.addEventListener('resize', this.resizePopoverWidth);
+
+		let prof = this.$session.get('profile');
+		this.company = prof.profile.company;
 	},
 	beforeDestroy() {
 		window.removeEventListener('resize', this.resizePopoverWidth);
