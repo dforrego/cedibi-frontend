@@ -3,17 +3,17 @@ import Router from 'vue-router'
 import session from 'vue-session'
 
 //pages
-import Dashboard from '../views/pages/menu/Dashboard.vue'
+import DashBusisness from '../views/pages/menu/home/DashBusisness.vue'
+import DashCedi from '../views/pages/menu/home/DashCedi.vue'
+import Base from '../views/pages/menu/home/BasePage.vue'
 import Board1 from '../views/pages/menu/Board1.vue'
 import Profile from '../views/pages/menu/Profile.vue'
-import Board from '../views/pages/menu/Board.vue'
 import NotFound from '../views/pages/NotFound.vue'
 import LogInApp from '../views/pages/auth/Login.vue'
 import layouts from '../layout'
 import store from '../store'
 
 Vue.use(Router)
-
 
 const router = new Router({
 	mode: 'history',
@@ -28,9 +28,10 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/dashboard',
-			name: 'dashboard',
-			component: Dashboard,
+			path: '/cedi', 
+			redirect: 'cedi/dashboard',
+			component: Base,
+			name: 'dash-cedi',
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
@@ -39,9 +40,43 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/board1',
-			name: 'board1',
+			path: '/cedi/dashboard',
+			component: DashCedi,
+			name: 'main-cedi',
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: true,
+				tags: ['pages']
+			}
+		},
+		{
+			path: '/cedi/board-1',
 			component: Board1,
+			name: 'board1-cedi',
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: true,
+				tags: ['pages']
+			}
+		},
+
+		{
+			path: '/client', 
+			redirect: 'client/dashboard',
+			component: Base,
+			name: 'dash-client',
+            children: [ 
+				{ 
+					path: '/client/dashboard', 
+					component: DashBusisness
+				}, 
+                { 
+					path: '/client/board-1', 
+					component: Board1
+				},
+			],
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
@@ -57,17 +92,6 @@ const router = new Router({
 				auth: true,
 				layout: layouts.navLeft,
 				searchable: true,
-				tags: ['pages']
-			}
-		},
-		{
-			path: '/board',
-			name: 'board',
-			component: Board,
-			meta: {
-				auth: true,
-				layout: layouts.navLeft,
-				searchable: false,
 				tags: ['pages']
 			}
 		},
@@ -111,30 +135,40 @@ const l = {
 	}
 }
 
-//insert here login logic
 const auth = {
 	loggedIn() {
-		if (Vue.prototype.$session.id()) {
-			store.commit('setLogin')
-		}
-		return store.getters.isLogged
+		return Vue.prototype.$session.exists()
 	},
 	logout() {
 		store.commit('setLogout')
+		Vue.prototype.$session.destroy()
 	}
 }
 
 router.beforeEach((to, from, next) => {
-	let authrequired = to && to.meta && to.meta.auth
-
+	let authrequired = to && to.meta && to.meta.auth 
 	if(authrequired) {
 		if(auth.loggedIn()) {
+			var rol = Vue.prototype.$session.get('profile').profile.rol.code
 			if(to.name === 'login') {
-				window.location.href = '/dashboard'
+				if(Vue.prototype.$session.get('profile')) {
+					if (rol == 10){
+						window.location.href = '/client'
+					} else {
+						window.location.href = '/cedi'
+					}
+				} else {
+					window.location.href = '/'
+				}
 				return false
-			} else { 
-				next()
+			} else if  (to.name.startsWith('client') && rol != 10) {
+				window.location.href = '/cedi'
+				return false
+			} else if (to.name.startsWith('cedi') && rol != 20) {
+				window.location.href = '/client'
+				return false
 			}
+			next()
 		} else {
 			if(to.name !== 'login'){
 				window.location.href = '/'
@@ -143,12 +177,7 @@ router.beforeEach((to, from, next) => {
 			next()
 		}
 	} else {
-		if(auth.loggedIn() && to.name === 'login'){
-			window.location.href = '/dashboard'
-			return false
-		} else {
-			next()
-		}
+		next()
 	}
 
 	if(to && to.meta && to.meta.layout){

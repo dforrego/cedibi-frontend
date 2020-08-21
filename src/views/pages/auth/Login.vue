@@ -1,38 +1,51 @@
 <template>
+ 	
 	<div class="login-page flex">
 		<div class="box grow scrollable align-vertical side-box box-left">
 			<div class="align-vertical-middle wrapper text-center">
 				
-				<h1 class="h-big text-white">CeDiBI</h1>
-				<p class="p-50 text-white">APLICACIÓN WEB QUE INTEGRA TECNOLOGÍAS DE INTELIGENCIA DE NEGOCIOS PARA LA GESTIÓN EN CENTROS DE DISTRIBUCIÓN (CEDI) EN EMPRESAS DE MANUFACTURA DE LA CIUDAD DE CALI.</p>
+				<h1 class="h-big text-white">¡Bienvenidos!</h1>
+				<h3 class="p-20 text-white">
+					Aplicación web que integra tecnologías de Inteligencia de Negocios para la gestión en centros 
+					de distribución (CEDI) en empresas de manufactura de la ciudad de cali.</h3>
 			</div>
+			
 		</div>
 		<div class="box grow scrollable align-vertical side-box box-right">
 			<div class="align-vertical-middle wrapper">
 				<el-row :gutter="10"> 
-					<el-col :span="12" :offset="8">
+					<el-col class="text-center">
 					<div class="grid-content bg-purple">
-						<img class="image-logo" src="@/assets/images/logo.svg" alt="logo-left" width="200px"/>
+						<img class="image-logo" src="@/assets/images/logo2.svg" alt="logo-left" width="200px"/>
 					</div>
 				</el-col> 
 				</el-row>
+				
 				<form class="form-box" @submit.prevent="login">
-					<h2>Inicio de Sesión</h2>
-					
-					<float-label class="styled">
+					<h4 class="font-size-15">Inicio de Sesión</h4>
+					<el-alert
+						title="¡Error!"
+						type="error"
+						:description="msg"
+						show-icon
+						v-show="visible_alert">
+					</el-alert>
+					<float-label class="styled font-size-12">
 						<input type="username" name="username" placeholder="Nombre de Usuario" v-model="username">
 					</float-label>
-					<float-label class="styled">
+					<float-label class="styled font-size-12">
 						<input type="password" name="password" placeholder="Contraseña" v-model="password">
 					</float-label>
 					
 					<div class="flex text-center center pt-30 pb-10">			
-						<el-button plain size="small" native-type="button" @click="login" class="login-btn pulse animated themed">
+						<el-button plain size="medium" native-type="button" @click="login" class="login-btn pulse animated themed">
 							Ingresar
 						</el-button>
 					</div>
+					
 
 				</form>
+				
 			</div>
 			
 		</div>
@@ -46,52 +59,83 @@ export default {
 	data() {
 		return {
 			username: '',
-			password: ''
+			password: '',
+			visible_alert: false,
+			msg: ''
 		}
 	},
 	mounted() {
-		let sid = this.$session.id() 
-		console.log(sid)
-		if (sid) {
+		let profile = this.$session.get('profile') 
+		if (this.$session.exists()) {
 			this.$store.commit('setLogin');
-			this.$router.push({ 
-					name: 'dashboard'
-			});
+			if (profile.profile.rol.code == 10){
+				this.$router.push({ name: 'dash-client'});
+			} else {
+				this.$router.push({ name: 'dash-cedi'	});
+			}
 		}
 	
 	},
 	methods: {
-		login: async function () {
-			let response = await this.$login.post('', {
+		login: function () {
+			this.visible_alert = false;
+			this.$login.post('', {
 				login: this.username,
 				password: this.password
 			})
-			console.log(response);
-			if (response.data.coderesponse === 0){
-				await this.oauth(response.data.user);
-			} else {
-				alert("Error login");
-			}
+			.then (res => {
+				console.log(res);
+				if (res.data.coderesponse === 0){
+					return this.oauth(res.data.user);
+				} else {
+					throw new Error("Error del Servidor")
+				}
+			})
+			.then(profile => {
+				console.log(profile);
+				this.$session.set('profile', profile);
+				if (profile.profile.rol.code == 10){
+					this.$router.push({ 
+						name: 'dash-client'
+					});
+				} else {
+					this.$router.push({ 
+						name: 'dash-cedi'
+					});
+				}
+			})
+			.catch (err => {
+				console.log(err);
+				console.log(typeof err);
+				
+				this.visible_alert = true;
+				if (err.toString().includes("400")){
+					this.msg = "Datos incorrectos del usuario";
+				} else {
+					this.msg = "Error del Servidor";
+				}
+			})	
 		},
-		oauth: async function(profile) {
+		oauth: function(profile) {
 			const formData = new FormData();
 			formData.append('grant_type', this.$store.state.toa.param1);
 			formData.append('client_id', this.$store.state.toa.param2);
 			formData.append('client_secret', this.$store.state.toa.param3);
-
-			let response = await this.$oauth.post('token/', formData);
-			if (response.data.access_token){
-				this.$session.start()
-				this.$store.commit('setLogin');
-				this.$store.commit('setGlobalData', {
-					object1: response.data.access_token, 
-					object2: response.data.expires_in
-				});
-				this.$session.set('profile', profile);
-				this.$router.push({ 
-					name: 'dashboard'
-				});
-			}
+			return this.$oauth.post('token/', formData)
+			.then(res => {
+				console.log(res);
+				if (res.data.access_token){
+					this.$session.start()
+					this.$store.commit('setLogin');
+					this.$store.commit('setGlobalData', {
+						object1: res.data.access_token, 
+						object2: res.data.expires_in
+					});
+					return profile;
+				} else {
+					throw new Error("Error del Servidor")
+				}
+			})
 		}
 	}
 }

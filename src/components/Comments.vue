@@ -1,7 +1,15 @@
 <template>
-    <el-row class="mt-0" :gutter="30">
+
+     <el-row class="mt-0" :gutter="30">
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb-30">
                 <div class="card-base card-shadow--medium mx-20" v-loading="!asyncComponent">
+                    <el-alert
+						title="¡Advertencia!"
+						type="warning"
+						description="El campo del comentario no puede estar vacío"
+						show-icon
+                        v-show="visible_alert">
+					</el-alert>
                     <el-collapse v-model="activeNames" @change="handleChange" class="ml-20">
                     <el-collapse-item title="Nuevo comentario" name="1" class="mr-20">
                         <el-form ref="form" :model="form" >
@@ -76,7 +84,8 @@ export default {
             form: {
                 comment: ''
             },
-            tableData: []
+            tableData: [],
+            visible_alert: false
         }
     },
     props: {
@@ -90,7 +99,7 @@ export default {
         },
     },
     async mounted() {
-        if(this.$session.id()) {
+        if(this.$session.exists()) {
 			await this.$store.dispatch('getOauth')
 		}
         await this.getComments()
@@ -114,22 +123,28 @@ export default {
             }
         },
         onSubmit: async function () {
-            let head = {
-                headers : { 
-                Authorization : 'Bearer ' + this.$store.state.poo.object1
-            }}
-            this.asyncComponent = false
-            let response = await this.$axios.post('boards/1/comments', {
-                "message": this.form.comment,
-                "board": this.board,
-	            "user": this.user
-            }, head)
-            
-            if(response.data) {
-                this.form.comment = ''
-                this.getComments()
+            if (this.form.comment.length > 0){
+                this.visible_alert = false;
+                let head = {
+                    headers : { 
+                    Authorization : 'Bearer ' + this.$store.state.poo.object1
+                }}
+                this.asyncComponent = false
+                let response = await this.$axios.post('boards/1/comments', {
+                    "message": this.form.comment,
+                    "board": this.board,
+                    "user": this.user
+                }, head)
+                
+                if(response.data) {
+                    this.form.comment = ''
+                    this.getComments()
+                }
+                this.asyncComponent = true
+
+            } else {
+                this.visible_alert = true;
             }
-            this.asyncComponent = true
 
         }
     }

@@ -9,24 +9,28 @@
 		class="main-navigation-menu"
 		:class="{'nav-collapsed':isCollapse}">
 		
-		<div class="el-menu-item-group__title"><span>Menú</span></div>
+		<div class="el-menu-item-group__title"><span class="font-size-14">Menú</span></div>
 		<br>
-		<el-menu-item index="/dashboard">
-				<i class="mdi mdi-home-analytics"></i><span slot="title">Inicio</span>
+		<el-menu-item index="/cedi">
+				<i class="mdi mdi-home-analytics"></i><span slot="title" class="font-size-14">Inicio</span>
 		</el-menu-item>
 		<el-menu-item index="/profile">
-			<i class="mdi mdi-account-card-details"></i><span slot="title">Mi Perfil</span>
+			<i class="mdi mdi-account-card-details"></i><span slot="title" class="font-size-14">Mi Perfil</span>
 		</el-menu-item>
 		<el-submenu index="authentication" popper-class="main-navigation-submenu">
 			<template slot="title">
-				<i class="mdi mdi-bulletin-board"></i><span>Tableros</span>
+				<i class="mdi mdi-bulletin-board"></i><span class="font-size-14">Tableros</span>
 			</template>
-			<el-menu-item v-for="board in boards" :key="board" index="/board">
-				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title">{{board.name}}</span>
+			<el-menu-item index="/cedi/board-1">
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-12">Ocupación CEDI</span>
 			</el-menu-item>
+			<el-menu-item index="/cedi/board-1">
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Vencimientos</span>
+			</el-menu-item>
+			
 		</el-submenu>
 		<el-menu-item @click="logout">
-				<i class="mdi mdi-exit-to-app"></i><span slot="title">Cerrar Sesión</span>
+				<i class="mdi mdi-exit-to-app"></i><span slot="title" class="font-size-14">Cerrar Sesión</span>
 		</el-menu-item>
 
 	</el-menu>	
@@ -44,8 +48,7 @@ export default {
 		return {
 			isIe: true,
 			isEdge: true,
-			activeLink: null,
-			boards: []
+			activeLink: null
 		}
 	},
 	methods: {
@@ -77,12 +80,7 @@ export default {
 		//console.log('this.$router.currentRoute.path', this.$router.currentRoute.path)
 	},
 	mounted() {
-		if(this.$session.id()) {
-			this.$store.dispatch('getOauth')
-		}
-
-		let prof = this.$session.get('profile');
-		//this.boards = prof.profile.rol.boards;
+		
 	}
 }
 </script>

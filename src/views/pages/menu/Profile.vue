@@ -111,28 +111,31 @@ export default {
 		}
 	},
 	async mounted() {
-		var colorThief = new ColorThief();
-		setTimeout(()=>{
-			let rgb = colorThief.getColor(document.getElementById('color-thief'))
-			//console.log('Profile mounted', rgb)
-			this.colorActive = true
-			this.color = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
-		}, 1000)
+		if(this.$session.id()) {
+			await this.$store.dispatch('getOauth')
+			var colorThief = new ColorThief();
+			setTimeout(()=>{
+				let rgb = colorThief.getColor(document.getElementById('color-thief'))
+				//console.log('Profile mounted', rgb)
+				this.colorActive = true
+				this.color = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+			}, 1000)
 
-		this.resizeAffixEnabled();
-		window.addEventListener('resize', this.resizeAffixEnabled);
-		//---
-		let prof = this.$session.get('profile');
-		let head = {
-			headers : { 
-			Authorization : 'Bearer ' + this.$store.state.poo.object1
-		}};
-		let response = await this.$axios.get('users/' + prof.id, head)
-		console.log("profile", response);
-		if (response.data.coderesponse === 0){
-			this.data = response.data.user
-		} else {
-			alert("Error profile");
+			this.resizeAffixEnabled();
+			window.addEventListener('resize', this.resizeAffixEnabled);
+			//---
+			let prof = this.$session.get('profile');
+			let head = {
+				headers : { 
+				Authorization : 'Bearer ' + this.$store.state.poo.object1
+			}};
+			let response = await this.$axios.get('users/' + prof.id, head)
+			console.log("profile", response);
+			if (response.data.coderesponse === 0){
+				this.data = response.data.user
+			} else {
+				alert("Error profile");
+			}
 		}
 	},
 	beforeDestroy() {

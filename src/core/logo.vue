@@ -1,8 +1,8 @@
 <template>
 	<div class="box-logo flex align-center" :class="{'nav-collapsed':collapseNav, [mode]:true}">
 		<!--<div class="letter-logo">P</div>-->
-		<img class="image-logo" src="@/assets/images/logo.svg" alt="logo"/>
-		<div class="app-name" @click="goto('/dashboard')">CeDiBI</div>
+		<img class="image-logo" src="@/assets/images/logo2.svg" alt="logo"/>
+		<div class="app-name" @click="goto('/dashboard')">CeDi BI</div>
 		<button class="collapse-nav" @click="collapseNavToggle">
 			<i class="mdi mdi-menu"></i>
 		</button>

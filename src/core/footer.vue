@@ -2,12 +2,12 @@
 	<div class="footer flex align-center justify-space-between" :class="{'above':position === 'above'}">
 		<div>
 			<a href="#" target="_blank"> 
-				<span>GitHub</span>
+				<span class="font-size-14">GitHub</span>
 				<i class="mdi mdi-github-circle" style="color:#5f8fdf;"></i>
 			</a>
 			</div>
 		<div>
-			<span>Realizado por <a href="#" target="_blank">Andrés Martínez - Diego Orrego</a></span>
+			<span class="font-size-14">Realizado por <a href="#" target="_blank">Andrés Martínez - Diego Orrego</a></span>
 		</div>
 	</div>
 </template>

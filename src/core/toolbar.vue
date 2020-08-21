@@ -37,14 +37,14 @@ export default {
 	props: ['menuBurger'],
 	data() {
 		return {
+			company: {
+				name: '',
+				logo: '',
+				nit: ''
+			},
 			popoverWidth: 300,
 			fullscreen: false,
-			lang: 'us',
-			company: {
-				name:"",
-				nit: "",
-				logo:""
-			}
+			lang: 'us'
 		}
 	},
 	methods: {
@@ -82,9 +82,11 @@ export default {
 		this.fullscreen = this.$fullscreen.getState()
 		this.resizePopoverWidth();
 		window.addEventListener('resize', this.resizePopoverWidth);
-
 		let prof = this.$session.get('profile');
+		console.log("*******")
+		console.log(prof)
 		this.company = prof.profile.company;
+
 	},
 	beforeDestroy() {
 		window.removeEventListener('resize', this.resizePopoverWidth);
