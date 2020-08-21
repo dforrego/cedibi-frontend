@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="533" height="533" viewBox="0 0 533 533">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0b6b9d;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+        stroke: #707070;
+      }
+
+      .cls-2 {
+        font-size: 86px;
+        font-family: SegoeUI-Semibold, Segoe UI;
+        font-weight: 600;
+        letter-spacing: 0.002em;
+      }
+
+      .cls-3 {
+        font-size: 185px;
+        font-family: SegoeUI-Bold, Segoe UI;
+        font-weight: 700;
+      }
+
+      .cls-4, .cls-5, .cls-6 {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 6px;
+      }
+
+      .cls-5 {
+        stroke-linecap: round;
+      }
+
+      .cls-6 {
+        stroke-linecap: square;
+      }
+
+      .cls-7 {
+        filter: url(#BI);
+      }
+
+      .cls-8 {
+        filter: url(#Trazado_6);
+      }
+    </style>
+    <filter id="Trazado_6" x="0" y="0" width="533" height="533" filterUnits="userSpaceOnUse">
+      <feOffset dx="10" dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#007cbb" flood-opacity="0.431"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="BI" x="271.5" y="143.5" width="210" height="278" filterUnits="userSpaceOnUse">
+      <feOffset dx="15" dy="15" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur-2"/>
+      <feFlood flood-color="#0c0e13" flood-opacity="0.722"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Grupo_1" data-name="Grupo 1" transform="translate(-359 -144)">
+    <g class="cls-8" transform="matrix(1, 0, 0, 1, 359, 144)">
+      <path id="Trazado_6-2" data-name="Trazado 6" class="cls-1" d="M236.5,0C367.115,0,473,105.885,473,236.5S367.115,473,236.5,473,0,367.115,0,236.5,105.885,0,236.5,0Z" transform="translate(20 20)"/>
+    </g>
+    <text id="CeDi" class="cls-2" transform="translate(505.5 354.5)"><tspan x="-91.885" y="0">CeDi</tspan></text>
+    <g class="cls-7" transform="matrix(1, 0, 0, 1, 359, 144)">
+      <text id="BI-2" data-name="BI" class="cls-3" transform="translate(361.5 344.5)"><tspan x="-88.616" y="0">BI</tspan></text>
+    </g>
+    <line id="Línea_7" data-name="Línea 7" class="cls-4" y1="180" x2="149" transform="translate(467.5 401.5)"/>
+    <line id="Línea_8" data-name="Línea 8" class="cls-5" y2="234" transform="translate(615.5 166.5)"/>
+    <line id="Línea_9" data-name="Línea 9" class="cls-6" x2="234" transform="translate(381.5 400.5)"/>
+  </g>
+</svg>

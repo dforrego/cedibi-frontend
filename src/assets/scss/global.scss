@@ -13,10 +13,11 @@
 @import 'vue-good-table-v2';
 @import 'v2-table';
 @import 'fullcalendar';
-@import '../fonts/Nunito-Sans.css';
+//@import '../fonts/Nunito-Sans.css';
+@import '../fonts/Roboto.css';
 
 html, body {
-	font-family: 'Nunito Sans', Helvetica, Arial, sans-serif;
+	font-family: 'Roboto';
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	line-height: 1.4;
