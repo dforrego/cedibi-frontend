@@ -11,8 +11,8 @@ export default new Vuex.Store({
 	state: {
 		toa: {
 			param1: 'client_credentials',
-			param2: 'PnVQxuKwnZXmWiRAGspVPqi1ZtGKBKaIDSdKQWvs',
-			param3: '6kcsZfGBilyRuZ0BS8S1KOvUfkwIpT0CioktGa3oEZXpbyzIzOoRByMgYVzxvqFbfgb1N5iGceUKNouI1gCPTpZFvrf5FuajXmsApGCiwtVwodRUk8wtQEOYfQ5QmuDH'
+			param2: process.env.VUE_APP_CID,
+			param3: process.env.VUE_APP_CSR
 		},
 		poo: {
 			object1: '',

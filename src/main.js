@@ -51,15 +51,15 @@ import axios from 'axios'
 Vue.use({
 	install (Vue) {
 		Vue.prototype.$axios =  axios.create({
-			baseURL: "http://3.14.28.253:8080/api/v1/",
+			baseURL: process.env.VUE_APP_URL,
 			headers: {'Content-Type': 'application/json', Accept: 'application/json' }
 		})
 		Vue.prototype.$login =  axios.create({
-			baseURL: "http://3.14.28.253:8080/api/v1/login",
+			baseURL: process.env.VUE_APP_URL+"login",
 			headers: {'Content-Type': 'application/json', Accept: 'application/json' }
 		})
 		Vue.prototype.$oauth =  axios.create({
-			baseURL: "http://3.14.28.253:8080/o/",
+			baseURL: process.env.VUE_APP_OAUTH_URL,
 			headers: {'Content-Type': 'multipart/form-data'	}
 		})
 	}
