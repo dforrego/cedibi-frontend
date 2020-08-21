@@ -82,7 +82,7 @@ export default {
 		}
 
 		let prof = this.$session.get('profile');
-		this.boards = prof.profile.rol.boards;
+		//this.boards = prof.profile.rol.boards;
 	}
 }
 </script>
