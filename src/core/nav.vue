@@ -21,14 +21,8 @@
 			<template slot="title">
 				<i class="mdi mdi-bulletin-board"></i><span>Tableros</span>
 			</template>
-			<el-menu-item index="/board1">
-				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title">Tablero 1</span>
-			</el-menu-item>
-			<el-menu-item index="/logout">
-				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title">Tablero 2</span>
-			</el-menu-item>
-			<el-menu-item index="/logout">
-				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title">Tablero 3</span>
+			<el-menu-item v-for="board in boards" :key="board" index="/board">
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title">{{board.name}}</span>
 			</el-menu-item>
 		</el-submenu>
 		<el-menu-item @click="logout">
@@ -50,7 +44,8 @@ export default {
 		return {
 			isIe: true,
 			isEdge: true,
-			activeLink: null
+			activeLink: null,
+			boards: []
 		}
 	},
 	methods: {
@@ -82,7 +77,12 @@ export default {
 		//console.log('this.$router.currentRoute.path', this.$router.currentRoute.path)
 	},
 	mounted() {
-		
+		if(this.$session.id()) {
+			this.$store.dispatch('getOauth')
+		}
+
+		let prof = this.$session.get('profile');
+		//this.boards = prof.profile.rol.boards;
 	}
 }
 </script>
