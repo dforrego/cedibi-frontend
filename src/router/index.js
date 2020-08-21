@@ -6,6 +6,7 @@ import session from 'vue-session'
 import Dashboard from '../views/pages/menu/Dashboard.vue'
 import Login from '../views/pages/auth/Login.vue'
 import Profile from '../views/pages/menu/Profile.vue'
+import Board from '../views/pages/menu/Board.vue'
 import NotFound from '../views/pages/NotFound.vue'
 
 import LogInApp from '../views/pages/auth/Login.vue'
@@ -47,6 +48,17 @@ const router = new Router({
 				auth: true,
 				layout: layouts.navLeft,
 				searchable: true,
+				tags: ['pages']
+			}
+		},
+		{
+			path: '/board',
+			name: 'board',
+			component: Board,
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: false,
 				tags: ['pages']
 			}
 		},
