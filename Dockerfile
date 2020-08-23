@@ -5,5 +5,5 @@ ADD package.json yarn.lock ./
 COPY . .
 RUN yarn install \
     && yarn run build
-CMD ["yarn", "start"]
+CMD ["yarn", "build"]
 EXPOSE 8080
