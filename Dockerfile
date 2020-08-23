@@ -1,10 +1,9 @@
 FROM node:10-alpine
-WORKDIR /home/ubuntu/source/
+WORKDIR /front
 ENV HOST 0.0.0.0
-ADD front/package.json front/yarn.lock ./
-COPY ./front ./
-RUN apt-get update \
-    && yarn install \
+ADD package.json yarn.lock ./
+COPY . .
+RUN yarn install \
     && yarn run build
 CMD ["yarn", "start"]
 EXPOSE 8080
