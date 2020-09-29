@@ -21,10 +21,10 @@
 			<template slot="title">
 				<i class="mdi mdi-bulletin-board"></i><span class="font-size-14">Tableros</span>
 			</template>
-			<el-menu-item index="/cedi/board-1">
+			<el-menu-item index="/cedi/board/ocupacion">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-12">Ocupación CEDI</span>
 			</el-menu-item>
-			<el-menu-item index="/cedi/board-1">
+			<el-menu-item index="/cedi/board/vencimiento">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Vencimientos</span>
 			</el-menu-item>
 			

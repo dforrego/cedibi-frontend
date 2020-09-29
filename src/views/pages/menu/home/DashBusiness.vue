@@ -6,11 +6,10 @@
 				<div class="card-base card-shadow--medium mb-30 widget medium-widget" v-loading="!asyncComponent" style="height: 170px; position: relative;">
 					<div class="widget-header ph-20 pt-20">
 						<div class="flex justify-center align-center">
-							<br>
-							<h3 style="margin:22px auto;">TABLERO GENERAL - CEDI</h3>
+							<h3 style="margin:22px auto;">TABLERO GENERAL - NEGOCIO</h3>
 						</div>
 					</div>
-					<div style="height:50px; width:100%; background-color:#EC760D; position:absolute; bottom:0;"> </div>
+					<div style="height:50px; width:100%; background-color:#1A4D9C; position:absolute; bottom:0;"> </div>
 				</div>
 			</el-col>
 			
@@ -22,15 +21,14 @@
 						<div class="flex justify-center align-center">
 							<div class="widget-icon-box mr-20 animated fadeInRight">
 								<i class="widget-icon mdi mdi-cube-outline accent-text fs-30"></i>
-
 							</div>
 							<div class="widget-info box grow text-truncate animated fadeInLeft">
 								<div class="o-050 widget-title text-truncate pt-5 pb-10">Ocupación Total</div>
-								<h3 class="m-0 text-truncate">{{total}} estibas</h3>
+								<h3 class="m-0 text-truncate">{{total}} und.</h3>
 							</div>
 						</div>
 					</div>
-					<div style="height:50px; width:100%; background-color:#ED882E;  position:absolute; bottom:0;"> </div>
+					<div style="height:50px; width:100%; background-color:#4B77BB;  position:absolute; bottom:0;"> </div>
 				</div>
 				
 			</el-col>
@@ -52,7 +50,7 @@
 							</div>
 						</div>
 					</div>
-					<div style="height:50px; width:100%; background-color:#EEA361;  position:absolute; bottom:0;"> </div>
+					<div style="height:50px; width:100%; background-color:#729BDA;  position:absolute; bottom:0;"> </div>
 				</div>
 
 			</el-col>
@@ -73,7 +71,7 @@
 							</div>
 						</div>
 					</div>
-					<div style="height:50px; width:100%; background-color:#EE9445;  position:absolute; bottom:0;"> </div>
+					<div style="height:50px; width:100%; background-color:#A7C2EC;  position:absolute; bottom:0;"> </div>
 				</div>
 			</el-col>  
 
@@ -109,7 +107,7 @@ import * as Highcharts from 'highcharts'
 import * as Exporting from 'highcharts/modules/exporting'
 Exporting(Highcharts)
 export default {
-	name: 'DashCedi',
+	name: 'DashClient',
 	data () {
 		return {
 			asyncComponent:true,
@@ -136,7 +134,8 @@ export default {
 			headers : { 
 			Authorization : 'Bearer ' + this.$store.state.poo.object1
 		}};
-		let profile = this.$session.get('profile');
+		// let profile = this.$session.get('profile');
+
 		Highcharts.setOptions({
 			'lang':{
 				downloadPDF: "Descargar en formato PDF",
@@ -148,6 +147,7 @@ export default {
 				viewFullscreen: "Ver en pantalla completa",
 				printChart: "Imprimir gráfica",
 				loading: "Cargando Gráfica"
+
 			}
 		});
 
@@ -234,16 +234,14 @@ export default {
 		var chart3 = Highcharts.chart('container-bars', options3);
 		chart3.showLoading();
 
-		this.$axios.get('roles/' + profile.profile.rol.code + '/dashboard', head)
-		.then( response => {
-			var data = response.data.data;
-
-		//setTimeout(() => {
-		//	var response = JSON.parse(
-		//		'{"coderesponse":0,"message":"success board mix","date":"2020/09/04 03:05:15","data":{"storage":{"records":[{"bodega_id":0,"name":"BOD M/CIA NO RECIBIDA   ","type":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"BOD NAL DE M/CIA NO RECIBIDA  ","type":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"BODEGA DEVOLUCION A","type":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"CUARENTENA B","type":"Externo Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"BODEGA C","type":"Externo Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"EXPORTACIONES B","type":"Interno Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"INTERMODAL D","type":"Externo Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"ALMACEN E","type":"Interno Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"LOGISTICA F","type":"Interno Regular","count":1636,"y":8.730921122851958},{"bodega_id":1,"name":"ALMACEN G","type":"Interno Regular","count":3985,"y":21.266944177607},{"bodega_id":8,"name":"DEVOLUCIONES H","type":"Interno Devoluciones","count":5,"y":0.026683744262994982},{"bodega_id":43,"name":"DEVOLUCIONES I ","type":"Externo Devoluciones","count":9,"y":0.04803073967339097},{"bodega_id":71,"name":"BODEGA J","type":"Interno Regular","count":3,"y":0.01601024655779699},{"bodega_id":81,"name":"BODEGA K","type":"Externo Regular","count":6,"y":0.03202049311559398},{"bodega_id":88,"name":"BODEGA L DEVOLUCIONES","type":"Interno Devoluciones","count":6,"y":0.03202049311559398}],"total":18738},"mix":{"records":[{"categoria_id":3,"name":"Interno Devoluciones","count":4919,"y":26.251467605934465},{"categoria_id":2,"name":"Externo Regular","count":3278,"y":17.493862738819512},{"categoria_id":1,"name":"Interno Regular","count":8896,"y":47.47571779272067},{"categoria_id":4,"name":"Externo Devoluciones","count":1645,"y":8.77895186252535}],"total":18738},"internal":{"total":13815,"percent":73.73},"external":{"total":4923,"percent":26.27},"status":{"titles":["Almc. Interno (Devolución)","Almc. Externo (Devolución)","En tránstio","No Apta"],"values":[4919,6564,[36],[0]]}}}'
-		//	);
-			//var data = response.data
-		    var graph1 = data.storage.records
+		// this.$axios.get('roles/' + profile.profile.rol.code + '/dashboard', head)
+		// .then( response => {
+			//var data = response.data.data;
+			//console.log(response);
+		setTimeout(() => {
+			var response = '{"coderesponse":0,"message":"success board mix","date":"2020/09/13 20:59:13","data":{"storage":{"records":[{"count":20324.0,"y":0.9560186274048639},{"count":8.0,"y":0.0003763112093701491},{"count":13.0,"y":0.0006115057152264923},{"count":1.0,"y":4.7038901171268636e-05},{"count":14.0,"y":0.0006585446163977609},{"count":92.0,"y":0.004327578907756715},{"count":25.0,"y":0.001175972529281716},{"count":91.0,"y":0.004280540006585446},{"count":507.0,"y":0.0238487228938332},{"count":4.0,"y":0.00018815560468507454},{"count":21.0,"y":0.0009878169245966415},{"count":99.0,"y":0.0046568512159555955},{"count":4.0,"y":0.00018815560468507454},{"count":2.0,"y":9.407780234253727e-05},{"count":54.0,"y":0.0025401006632485065}],"total":21259.0},"mix":{"records":[{"count":20397.0,"y":0.9594524671903665},{"count":545.0,"y":0.02563620113834141},{"count":288.0,"y":0.013547203537325369},{"count":29.0,"y":0.0013641281339667906}],"total":21259.0},"internal":{"total":317,"percent":1.49},"external":{"total":20942,"percent":98.51},"status":{"titles":["Almc. Interno (Devolución)","Almc. Externo (Devolución)","En tránstio","No Apta"],"values":[288,20685,12486.0,0.0]}}}'
+			var data = response.data; 
+			var graph1 = data.storage.records
 			this.total = data.storage.total
 			this.per_internal = data.internal.percent
 			this.per_external = data.external.percent
@@ -280,13 +278,11 @@ export default {
 			}
 			chart3.hideLoading();
 			Highcharts.chart('container-bars', options3);
-			
-		//}, 6000) 
-		})
-		
-		 .catch(err =>{
-			this.openError();
-		}) 
+		}, 6000)
+		// })
+		// .catch(err =>{
+		// 	this.openError();
+		// })
 	},
 	beforeDestroy() {},
 	components: {}

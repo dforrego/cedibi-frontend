@@ -10,7 +10,8 @@
 						show-icon
                         v-show="visible_alert">
 					</el-alert>
-                    <el-collapse v-model="activeNames" @change="handleChange" class="ml-20">
+                    <!--<el-collapse v-model="activeNames" @change="handleChange" class="ml-20">-->
+                    <el-collapse v-model="activeNames" class="ml-20">
                     <el-collapse-item title="Nuevo comentario" name="1" class="mr-20">
                         <el-form ref="form" :model="form" >
                         <el-form-item label="Comentario">
@@ -43,7 +44,7 @@
                             color="#0bbd87"
                             size="large"
                             :timestamp="comment.message">
-                            {{comment.user.first_name}} {{comment.user.last_name}}, {{comment.created_at}}
+                            <strong>{{comment.user.first_name}} {{comment.user.last_name}}</strong>, {{comment.created_at | formatDate}}
                             </el-timeline-item>
                         </el-timeline>
                     </div>
@@ -69,6 +70,8 @@
 </template>
 
 <script>
+
+import moment from 'moment'
 export default {
     data () {
         return {
@@ -103,6 +106,14 @@ export default {
 			await this.$store.dispatch('getOauth')
 		}
         await this.getComments()
+       
+    },
+    filters: {
+        formatDate: function(value) {
+            if (value) {
+                return moment(String(value)).format('MM/DD/YYYY hh:mm')
+            }
+        }
     },
     methods: {
         changePage: function () {
@@ -113,7 +124,7 @@ export default {
                 headers : { 
                 Authorization : 'Bearer ' + this.$store.state.poo.object1
             }}
-            let getComments = await this.$axios.get('boards/1/comments', head)
+            let getComments = await this.$axios.get('boards/'+this.board+'/comments', head)
             this.dataTotal = getComments.data.comments
             this.page.total = this.dataTotal.length || 0
             
@@ -121,6 +132,7 @@ export default {
                 this.tableData = this.dataTotal.slice(0,5)
                 this.page.other = Math.ceil(this.page.total / this.page.size)
             }
+
         },
         onSubmit: async function () {
             if (this.form.comment.length > 0){
@@ -130,7 +142,7 @@ export default {
                     Authorization : 'Bearer ' + this.$store.state.poo.object1
                 }}
                 this.asyncComponent = false
-                let response = await this.$axios.post('boards/1/comments', {
+                let response = await this.$axios.post('boards/'+this.board+'/comments', {
                     "message": this.form.comment,
                     "board": this.board,
                     "user": this.user

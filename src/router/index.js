@@ -3,10 +3,11 @@ import Router from 'vue-router'
 import session from 'vue-session'
 
 //pages
-import DashBusisness from '../views/pages/menu/home/DashBusisness.vue'
+import DashClient from '../views/pages/menu/home/DashBusiness.vue'
 import DashCedi from '../views/pages/menu/home/DashCedi.vue'
 import Base from '../views/pages/menu/home/BasePage.vue'
 import Board1 from '../views/pages/menu/Board1.vue'
+import Board2 from '../views/pages/menu/Board2.vue'
 import Profile from '../views/pages/menu/Profile.vue'
 import NotFound from '../views/pages/NotFound.vue'
 import LogInApp from '../views/pages/auth/Login.vue'
@@ -50,10 +51,22 @@ const router = new Router({
 				tags: ['pages']
 			}
 		},
+
 		{
-			path: '/cedi/board-1',
+			path: '/cedi/board/ocupacion',
 			component: Board1,
-			name: 'board1-cedi',
+			name: 'board-1',
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: true,
+				tags: ['pages']
+			}
+		},
+		{
+			path: '/cedi/board/vencimiento',
+			component: Board2,
+			name: 'board-2',
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
@@ -67,16 +80,6 @@ const router = new Router({
 			redirect: 'client/dashboard',
 			component: Base,
 			name: 'dash-client',
-            children: [ 
-				{ 
-					path: '/client/dashboard', 
-					component: DashBusisness
-				}, 
-                { 
-					path: '/client/board-1', 
-					component: Board1
-				},
-			],
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
@@ -84,6 +87,41 @@ const router = new Router({
 				tags: ['pages']
 			}
 		},
+		{
+			path: '/client/dashboard',
+			component: DashClient,
+			name: 'main-business',
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: true,
+				tags: ['pages']
+			}
+		},
+
+		{
+			path: '/client/board/inventario',
+			component: Board1,
+			name: 'board-3',
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: true,
+				tags: ['pages']
+			}
+		},
+		{
+			path: '/client/board/vencimiento',
+			component: Board2,
+			name: 'board-2',
+			meta: {
+				auth: true,
+				layout: layouts.navLeft,
+				searchable: true,
+				tags: ['pages']
+			}
+		},
+
 		{
 			path: '/profile',
 			name: 'profile',
