@@ -100,7 +100,7 @@ const router = new Router({
 		},
 
 		{
-			path: '/client/board/inventario',
+			path: '/client/board/ocupacion',
 			component: Board1,
 			name: 'board-3',
 			meta: {
@@ -110,18 +110,19 @@ const router = new Router({
 				tags: ['pages']
 			}
 		},
-		{
-			path: '/client/board/vencimiento',
-			component: Board2,
-			name: 'board-2',
+
+	/* 	{
+			path: '/client/board/inventario',
+			component: Board1,
+			name: 'board-3',
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
 				searchable: true,
 				tags: ['pages']
 			}
-		},
-
+		}, */
+	
 		{
 			path: '/profile',
 			name: 'profile',

@@ -148,10 +148,10 @@ export default {
                         type: 'column'
                     },
                     title: {
-                        text: 'Vencimiento por Negocio - Línea'
+                        text: 'Vencimiento por Negocio > Línea > Marca > Artículo'
                     },
                     subtitle: {
-                        text: 'Clic en cada Negocio'
+                        text: 'Dar clic en cada barra'
                     },
                     accessibility: {
                         announceNewData: {
@@ -193,7 +193,7 @@ export default {
             var chart2 = Highcharts.chart('container-dilldrops', options2);
             chart2.showLoading();
             
-             this.$axios.get('boards/2', head)
+            this.$axios.get('boards/2', head)
              .then( response => {
           //  setTimeout(() => {
                 this.load = true;
@@ -206,6 +206,9 @@ export default {
                 this.board = response.data.board
                 this.expired =response.data.graphs.expired.expired.total
                 this.no_expired = response.data.graphs.expired.no_expired.total
+                this.series = response.data.graphs.series.records
+
+                this.drilldowns = response.data.graphs.drills
 
                 options1.series[0] = {
                     name: 'Bodegas',
@@ -218,71 +221,13 @@ export default {
                 options2.series[0] = {
                     name: "Negocios",
                     colorByPoint: true,
-                    data: [
-                        {
-                            name: "NEGOCIO-1",
-                            y: 11.27,
-                            drilldown: "NEGOCIO-1"
-                        },
-                        {
-                            name: "NEGOCIO-10",
-                            y: 68.36,
-                            drilldown: "NEGOCIO-10"
-                        },
-                        {
-                            name: "NEGOCIO-35",
-                            y: 20.37,
-                            drilldown: "NEGOCIO-35"
-                        }
-                    ]
+                    data: this.series
                 }
                 
                 options2.drilldown = {
                         colorByPoint: true,
-                        series: [
-                            {
-                                name: "NEGOCIO-1",
-                                colorByPoint: true,
-                                id: "NEGOCIO-1",
-                                data: [
-                                    [
-                                        "LINEA-18",
-                                        5.25
-                                    ],
-                                    [
-                                        "LINEA-15",
-                                        6.02
-                                    ],
-                                ]
-                            },
-                            {
-                                name: "NEGOCIO-10",
-                                colorByPoint: true,
-                                id: "NEGOCIO-10",
-                                data: [
-                                    [
-                                        "LINEA-102",
-                                        40.36
-                                    ],
-                                     [
-                                        "LINEA-105",
-                                        28.00
-                                    ] 
-                                ]
-                            },
-                            {
-                                name: "NEGOCIO-35",
-                                 colorByPoint: true,
-                                id: "NEGOCIO-35",
-                                data: [
-                                    [
-                                        "LINEA-352",
-                                        20.37
-                                    ]
-                                ]
-                            }
-                        ]
-                    }
+                        series: this.drilldowns
+                }
                 chart2.hideLoading();
                 Highcharts.chart('container-dilldrops', options2);
         //    }, 4000);
