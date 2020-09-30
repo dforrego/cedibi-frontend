@@ -16,7 +16,7 @@
 			
 			<el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
 				<div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent"
-				style="height: 170px; position: relative;">
+					style="height: 170px; position: relative;">
 
 					<div class="widget-header ph-20 pt-20">
 						<div class="flex justify-center align-center">
@@ -142,9 +142,9 @@ export default {
 				downloadPDF: "Descargar en formato PDF",
 				downloadPNG: "Descargar en formato PNG",
 				downloadJPEG:"Descargar en formato JPG",
-				downloadSVG:"Descargar en formato SVG",
-				downloadXLS:"Descargar en formato XLS",
-				drillUpText:"< Atrás",
+				downloadSVG: "Descargar en formato SVG",
+				downloadXLS: "Descargar en formato XLS",
+				drillUpText: "< Atrás",
 				viewFullscreen: "Ver en pantalla completa",
 				printChart: "Imprimir gráfica",
 				loading: "Cargando Gráfica"
@@ -235,58 +235,50 @@ export default {
 		chart3.showLoading();
 
 		this.$axios.get('roles/' + profile.profile.rol.code + '/dashboard', head)
-		.then( response => {
-			var data = response.data.data;
+			.then( response => {
+				console.log(response);
+				var data = response.data.data;
+				var graph1 = data.storage.records
+				this.total = data.storage.total
+				this.per_internal = data.internal.percent
+				this.per_external = data.external.percent
+				this.internal = data.internal.total
+				this.external = data.external.total
+				var graph2 = data.mix.records
+				var titles = data.status.titles
+				var values = data.status.values
 
-		//setTimeout(() => {
-		//	var response = JSON.parse(
-		//		'{"coderesponse":0,"message":"success board mix","date":"2020/09/04 03:05:15","data":{"storage":{"records":[{"bodega_id":0,"name":"BOD M/CIA NO RECIBIDA   ","type":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"BOD NAL DE M/CIA NO RECIBIDA  ","type":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"BODEGA DEVOLUCION A","type":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"CUARENTENA B","type":"Externo Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"BODEGA C","type":"Externo Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"EXPORTACIONES B","type":"Interno Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"INTERMODAL D","type":"Externo Devoluciones","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"ALMACEN E","type":"Interno Regular","count":1636,"y":8.730921122851958},{"bodega_id":0,"name":"LOGISTICA F","type":"Interno Regular","count":1636,"y":8.730921122851958},{"bodega_id":1,"name":"ALMACEN G","type":"Interno Regular","count":3985,"y":21.266944177607},{"bodega_id":8,"name":"DEVOLUCIONES H","type":"Interno Devoluciones","count":5,"y":0.026683744262994982},{"bodega_id":43,"name":"DEVOLUCIONES I ","type":"Externo Devoluciones","count":9,"y":0.04803073967339097},{"bodega_id":71,"name":"BODEGA J","type":"Interno Regular","count":3,"y":0.01601024655779699},{"bodega_id":81,"name":"BODEGA K","type":"Externo Regular","count":6,"y":0.03202049311559398},{"bodega_id":88,"name":"BODEGA L DEVOLUCIONES","type":"Interno Devoluciones","count":6,"y":0.03202049311559398}],"total":18738},"mix":{"records":[{"categoria_id":3,"name":"Interno Devoluciones","count":4919,"y":26.251467605934465},{"categoria_id":2,"name":"Externo Regular","count":3278,"y":17.493862738819512},{"categoria_id":1,"name":"Interno Regular","count":8896,"y":47.47571779272067},{"categoria_id":4,"name":"Externo Devoluciones","count":1645,"y":8.77895186252535}],"total":18738},"internal":{"total":13815,"percent":73.73},"external":{"total":4923,"percent":26.27},"status":{"titles":["Almc. Interno (Devolución)","Almc. Externo (Devolución)","En tránstio","No Apta"],"values":[4919,6564,[36],[0]]}}}'
-		//	);
-			//var data = response.data
-		    var graph1 = data.storage.records
-			this.total = data.storage.total
-			this.per_internal = data.internal.percent
-			this.per_external = data.external.percent
-			this.internal = data.internal.total
-			this.external = data.external.total
-			var graph2 = data.mix.records
-			var titles = data.status.titles
-			var values = data.status.values
-
-			options1.series[0] = {
-				name: 'Bodegas',
-				colorByPoint: true,
-				data: graph1
-			};
-			chart.hideLoading();
-			Highcharts.chart('container-pie', options1);
-			//---
-			options2.series[0] = {
-				name: 'Bodegas',
-				colorByPoint: true,
-				data: graph2
-			}
-			chart2.hideLoading();
-			Highcharts.chart('container-pie2', options2);
-		
-			//---
-			options3.series[0] = {
-				name: 'Estibas',
-				colorByPoint: true,
-				data: values
-			}
-			options3.xAxis = {
-				categories: titles
-			}
-			chart3.hideLoading();
-			Highcharts.chart('container-bars', options3);
+				options1.series[0] = {
+					name: 'Bodegas',
+					colorByPoint: true,
+					data: graph1
+				};
+				chart.hideLoading();
+				Highcharts.chart('container-pie', options1);
+				//---
+				options2.series[0] = {
+					name: 'Bodegas',
+					colorByPoint: true,
+					data: graph2
+				}
+				chart2.hideLoading();
+				Highcharts.chart('container-pie2', options2);
 			
-		//}, 6000) 
-		})
-		
-		 .catch(err =>{
-			this.openError();
-		}) 
+				//---
+				options3.series[0] = {
+					name: 'Estibas',
+					colorByPoint: true,
+					data: values
+				}
+				options3.xAxis = {
+					categories: titles
+				}
+				chart3.hideLoading();
+				Highcharts.chart('container-bars', options3);
+			})
+			.catch(err =>{
+				this.openError();
+			}) 
 	},
 	beforeDestroy() {},
 	components: {}

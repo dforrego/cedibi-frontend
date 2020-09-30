@@ -8,6 +8,7 @@ import DashCedi from '../views/pages/menu/home/DashCedi.vue'
 import Base from '../views/pages/menu/home/BasePage.vue'
 import Board1 from '../views/pages/menu/Board1.vue'
 import Board2 from '../views/pages/menu/Board2.vue'
+import Board3 from '../views/pages/menu/Board3.vue'
 import Profile from '../views/pages/menu/Profile.vue'
 import NotFound from '../views/pages/NotFound.vue'
 import LogInApp from '../views/pages/auth/Login.vue'
@@ -101,7 +102,7 @@ const router = new Router({
 
 		{
 			path: '/client/board/ocupacion',
-			component: Board1,
+			component: Board3,
 			name: 'board-3',
 			meta: {
 				auth: true,

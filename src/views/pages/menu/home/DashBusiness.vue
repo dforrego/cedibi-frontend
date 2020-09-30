@@ -3,7 +3,8 @@
 		<el-row class="mt-0" :gutter="30">
 
 			<el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
-				<div class="card-base card-shadow--medium mb-30 widget medium-widget" v-loading="!asyncComponent" style="height: 170px; position: relative;">
+				<div class="card-base card-shadow--medium mb-30 widget medium-widget" v-loading="!asyncComponent" 
+					style="height: 170px; position: relative;">
 					<div class="widget-header ph-20 pt-20">
 						<div class="flex justify-center align-center">
 							<h3 style="margin:22px auto;">TABLERO GENERAL - NEGOCIO</h3>
@@ -15,7 +16,7 @@
 			
 			<el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
 				<div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent"
-				style="height: 170px; position: relative;">
+					style="height: 170px; position: relative;">
 
 					<div class="widget-header ph-20 pt-20">
 						<div class="flex justify-center align-center">
@@ -34,15 +35,13 @@
 			</el-col>
 
 			<el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
-					
-					<div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent"
+				<div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent"
 					style="height: 170px; position: relative;">
 
 					<div class="widget-header ph-20 pt-20">
 						<div class="flex justify-center align-center">
 							<div class="widget-icon-box mr-20 animated fadeInRight">
 								<i class="widget-icon mdi mdi-cube-outline success-text fs-30"></i>
-								
 							</div>
 							<div class="widget-info box grow text-truncate animated fadeInLeft">
 								<div class="o-050 widget-title text-truncate pt-5 pb-10">Alm. Interno</div>
@@ -52,7 +51,6 @@
 					</div>
 					<div style="height:50px; width:100%; background-color:#729BDA;  position:absolute; bottom:0;"> </div>
 				</div>
-
 			</el-col>
 
 			<el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
@@ -71,7 +69,7 @@
 							</div>
 						</div>
 					</div>
-					<div style="height:50px; width:100%; background-color:#A7C2EC;  position:absolute; bottom:0;"> </div>
+					<div style="height:50px; width:100%; background-color:#A7C2EC; position:absolute; bottom:0;"> </div>
 				</div>
 			</el-col>  
 
@@ -134,20 +132,18 @@ export default {
 			headers : { 
 			Authorization : 'Bearer ' + this.$store.state.poo.object1
 		}};
-		// let profile = this.$session.get('profile');
-
+		let profile = this.$session.get('profile');
 		Highcharts.setOptions({
-			'lang':{
+			'lang': {
 				downloadPDF: "Descargar en formato PDF",
 				downloadPNG: "Descargar en formato PNG",
-				downloadJPEG:"Descargar en formato JPG",
-				downloadSVG:"Descargar en formato SVG",
-				downloadXLS:"Descargar en formato XLS",
-				drillUpText:"< Atrás",
+				downloadJPEG: "Descargar en formato JPG",
+				downloadSVG: "Descargar en formato SVG",
+				downloadXLS: "Descargar en formato XLS",
+				drillUpText: "< Atrás",
 				viewFullscreen: "Ver en pantalla completa",
 				printChart: "Imprimir gráfica",
 				loading: "Cargando Gráfica"
-
 			}
 		});
 
@@ -234,55 +230,50 @@ export default {
 		var chart3 = Highcharts.chart('container-bars', options3);
 		chart3.showLoading();
 
-		// this.$axios.get('roles/' + profile.profile.rol.code + '/dashboard', head)
-		// .then( response => {
-			//var data = response.data.data;
-			//console.log(response);
-		setTimeout(() => {
-			var response = '{"coderesponse":0,"message":"success board mix","date":"2020/09/13 20:59:13","data":{"storage":{"records":[{"count":20324.0,"y":0.9560186274048639},{"count":8.0,"y":0.0003763112093701491},{"count":13.0,"y":0.0006115057152264923},{"count":1.0,"y":4.7038901171268636e-05},{"count":14.0,"y":0.0006585446163977609},{"count":92.0,"y":0.004327578907756715},{"count":25.0,"y":0.001175972529281716},{"count":91.0,"y":0.004280540006585446},{"count":507.0,"y":0.0238487228938332},{"count":4.0,"y":0.00018815560468507454},{"count":21.0,"y":0.0009878169245966415},{"count":99.0,"y":0.0046568512159555955},{"count":4.0,"y":0.00018815560468507454},{"count":2.0,"y":9.407780234253727e-05},{"count":54.0,"y":0.0025401006632485065}],"total":21259.0},"mix":{"records":[{"count":20397.0,"y":0.9594524671903665},{"count":545.0,"y":0.02563620113834141},{"count":288.0,"y":0.013547203537325369},{"count":29.0,"y":0.0013641281339667906}],"total":21259.0},"internal":{"total":317,"percent":1.49},"external":{"total":20942,"percent":98.51},"status":{"titles":["Almc. Interno (Devolución)","Almc. Externo (Devolución)","En tránstio","No Apta"],"values":[288,20685,12486.0,0.0]}}}'
-			var data = response.data; 
-			var graph1 = data.storage.records
-			this.total = data.storage.total
-			this.per_internal = data.internal.percent
-			this.per_external = data.external.percent
-			this.internal = data.internal.total
-			this.external = data.external.total
-			var graph2 = data.mix.records
-			var titles = data.status.titles
-			var values = data.status.values
+		this.$axios.get('roles/' + profile.profile.rol.code + '/dashboard', head)
+			.then( response => {
+				var data = response.data.data;
+				var graph1 = data.storage.records
+				this.total = data.storage.total
+				this.per_internal = data.internal.percent
+				this.per_external = data.external.percent
+				this.internal = data.internal.total
+				this.external = data.external.total
+				var graph2 = data.mix.records
+				var titles = data.status.titles
+				var values = data.status.values
 
-			options1.series[0] = {
-				name: 'Bodegas',
-				colorByPoint: true,
-				data: graph1
-			};
-			chart.hideLoading();
-			Highcharts.chart('container-pie', options1);
-			//---
-			options2.series[0] = {
-				name: 'Bodegas',
-				colorByPoint: true,
-				data: graph2
-			}
-			chart2.hideLoading();
-			Highcharts.chart('container-pie2', options2);
-		
-			//---
-			options3.series[0] = {
-				name: 'Estibas',
-				colorByPoint: true,
-				data: values
-			}
-			options3.xAxis = {
-				categories: titles
-			}
-			chart3.hideLoading();
-			Highcharts.chart('container-bars', options3);
-		}, 6000)
-		// })
-		// .catch(err =>{
-		// 	this.openError();
-		// })
+				options1.series[0] = {
+					name: 'Bodegas',
+					colorByPoint: true,
+					data: graph1
+				};
+				chart.hideLoading();
+				Highcharts.chart('container-pie', options1);
+				//---
+				options2.series[0] = {
+					name: 'Bodegas',
+					colorByPoint: true,
+					data: graph2
+				}
+				chart2.hideLoading();
+				Highcharts.chart('container-pie2', options2);
+			
+				//---
+				options3.series[0] = {
+					name: 'Estibas',
+					colorByPoint: true,
+					data: values
+				}
+				options3.xAxis = {
+					categories: titles
+				}
+				chart3.hideLoading();
+				Highcharts.chart('container-bars', options3);
+			})
+			.catch(err =>{
+				this.openError();
+			})
 	},
 	beforeDestroy() {},
 	components: {}
@@ -306,5 +297,3 @@ export default {
 	}
 }
 </style>
-
-

@@ -21,12 +21,20 @@
 			<template slot="title">
 				<i class="mdi mdi-bulletin-board"></i><span class="font-size-14">Tableros</span>
 			</template>
-			<el-menu-item index="/cedi/board/ocupacion">
-				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-12">Ocupación CEDI</span>
+
+			<el-menu-item index="/cedi/board/ocupacion" v-show="isCedi">
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Ocupación CEDI</span>
 			</el-menu-item>
-			<el-menu-item index="/cedi/board/vencimiento">
+			<el-menu-item index="/cedi/board/vencimiento" v-show="isCedi">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Vencimientos</span>
 			</el-menu-item>
+
+			<el-menu-item index="/client/board/ocupacion" v-show="!isCedi">
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Ocupación del Negocio</span>
+			</el-menu-item>
+			<!-- <el-menu-item index="/client/board/ocupacion" v-show="!isCedi">
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Rotación de Inventario</span>
+			</el-menu-item> -->
 			
 		</el-submenu>
 		<el-menu-item @click="logout">
@@ -48,7 +56,8 @@ export default {
 		return {
 			isIe: true,
 			isEdge: true,
-			activeLink: null
+			activeLink: null,
+			isCedi: true
 		}
 	},
 	methods: {
@@ -80,7 +89,15 @@ export default {
 		//console.log('this.$router.currentRoute.path', this.$router.currentRoute.path)
 	},
 	mounted() {
-		
+		let profile = this.$session.get('profile');
+		this.isCedi = profile.profile.rol.code == 20
+		// this.$axios.get('roles/' + profile.profile.rol.code + '/boards', head)
+		// 	.then( response => {
+				
+		// 	})
+		// 	.catch( error => {
+
+		// 	})
 	}
 }
 </script>

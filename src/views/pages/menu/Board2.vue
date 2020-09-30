@@ -2,7 +2,8 @@
 	<vue-scroll class="page-dashboard" >
         <div>
             <h2>{{board.name}}</h2>
-            <h5>{{board.description}}</h5>	
+            <h4>{{board.type.name}}</h4>
+            <h6>{{board.description}}</h6>	
             <el-row class="mt-0" :gutter="30" :v-show="load">	
                 <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                     <div id="container-storage"></div>
@@ -11,12 +12,10 @@
                 <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                     <div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent"
                         style="height: 170px; position: relative;">
-
                             <div class="widget-header ph-20 pt-20">
                                 <div class="flex justify-center align-center">
                                     <div class="widget-icon-box mr-20 animated fadeInRight">
                                         <i class="widget-icon mdi mdi-cube-outline accent-text fs-30"></i>
-
                                     </div>
                                     <div class="widget-info box grow text-truncate animated fadeInLeft">
                                         <div class="o-050 widget-title text-truncate pt-5 pb-10">Total Vencido</div>
@@ -27,7 +26,7 @@
                             <div style="height:50px; width:100%; background-color:#ED882E;  position:absolute; bottom:0;"> </div>
                         </div>
                         <div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent"
-                        style="height: 170px; position: relative;">
+                                style="height: 170px; position: relative;">
 
                             <div class="widget-header ph-20 pt-20">
                                 <div class="flex justify-center align-center">
@@ -73,13 +72,18 @@ export default {
     data() {
         return {
             activeNames: ['1'],
-            asyncComponent:true,
+            asyncComponent: true,
 			tableData: [],
 			board: {
-                id : 0,
-                name: '',
-                description:''
-            },
+				name: '',
+				description:'',
+				type: {
+					name:'',
+					code: 0
+				},
+				status: '',
+				created_at: ''
+			},
             user_id: 2,
             load: false,
             no_expired : 0,
@@ -94,18 +98,19 @@ export default {
             this.board.id = 2
             
             let head = {
-			headers : { 
-			    Authorization : 'Bearer ' + this.$store.state.poo.object1
-            }};
+			    headers : { 
+			        Authorization : 'Bearer ' + this.$store.state.poo.object1
+                }
+            };
 
             Highcharts.setOptions({
                 'lang':{
                     downloadPDF: "Descargar en formato PDF",
                     downloadPNG: "Descargar en formato PNG",
-                    downloadJPEG:"Descargar en formato JPG",
-                    downloadSVG:"Descargar en formato SVG",
-                    downloadXLS:"Descargar en formato XLS",
-                    drillUpText:"< Atrás",
+                    downloadJPEG: "Descargar en formato JPG",
+                    downloadSVG: "Descargar en formato SVG",
+                    downloadXLS: "Descargar en formato XLS",
+                    drillUpText: "< Atrás",
                     viewFullscreen: "Ver en pantalla completa",
                     printChart: "Imprimir gráfica",
                     loading: "Cargando Gráfica"
@@ -194,48 +199,38 @@ export default {
             chart2.showLoading();
             
             this.$axios.get('boards/2', head)
-             .then( response => {
-          //  setTimeout(() => {
-                this.load = true;
-                //console.log(response);
-              /*  var response = { "data":
-                    JSON.parse(
-                        '{"coderesponse":0,"message":"Board Vencimiento ","date":"2020/09/04 03:09:30","graphs":{"expired":{"expired":{"total":18738,"porc":100},"no_expired":{"total":0,"porc":0},"total_estibas":100},"storage":{"records":[{"name":"BOD M/CIA NO RECIBIDA","nom_categoria":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"name":"BOD NAL DE M/CIA NO RECIBIDA","nom_categoria":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"name":"BODEGA DEVOLUCION A","nom_categoria":"Interno Devoluciones","count":1636,"y":8.730921122851958},{"name":"CUARENTENA B","nom_categoria":"Externo Regular","count":1636,"y":8.730921122851958},{"name":"BODEGA C","nom_categoria":"Externo Regular","count":1636,"y":8.730921122851958},{"name":"EXPORTACIONES B     ","nom_categoria":"Interno Regular","count":1636,"y":8.730921122851958},{"name":"INTERMODAL D","nom_categoria":"Externo Devoluciones","count":1636,"y":8.730921122851958},{"name":"ALMACEN E","nom_categoria":"Interno Regular","count":1636,"y":8.730921122851958},{"name":"LOGISTICA F","nom_categoria":"Interno Regular","count":1636,"y":8.730921122851958},{"name":"ALMACEN G","nom_categoria":"Interno Regular","count":3985,"y":21.266944177607},{"name":"DEVOLUCIONES H","nom_categoria":"Interno Devoluciones","count":5,"y":0.026683744262994982},{"name":"DEVOLUCIONES I ","nom_categoria":"Externo Devoluciones","count":9,"y":0.04803073967339097},{"name":"BODEGA J","nom_categoria":"Interno Regular","count":3,"y":0.01601024655779699},{"name":"BODEGA K","nom_categoria":"Externo Regular","count":6,"y":0.03202049311559398},{"name":"BODEGA L DEVOLUCIONES","nom_categoria":"Interno Devoluciones","count":6,"y":0.03202049311559398}],"total":18738}},"board":{"name":"Vencimientos","description":"Dashboard que muestra el análisis de las fechas de vencimiento de los articulos","type":{"name":"B","code":20},"status":true,"created_at":"2020-07-31T00:48:25.830699Z"}}'
-                    )
-                };*/
-                this.board = response.data.board
-                this.expired =response.data.graphs.expired.expired.total
-                this.no_expired = response.data.graphs.expired.no_expired.total
-                this.series = response.data.graphs.series.records
+                .then( response => {
+                    this.load = true;
+                    this.board = response.data.board
+                    this.expired =response.data.graphs.expired.expired.total
+                    this.no_expired = response.data.graphs.expired.no_expired.total
+                    this.series = response.data.graphs.series.records
+                    this.drilldowns = response.data.graphs.drills
 
-                this.drilldowns = response.data.graphs.drills
-
-                options1.series[0] = {
-                    name: 'Bodegas',
-                    colorByPoint: true,
-                    data: response.data.graphs.storage.records
-                }
-                chart.hideLoading();
-                Highcharts.chart('container-storage', options1);
-
-                options2.series[0] = {
-                    name: "Negocios",
-                    colorByPoint: true,
-                    data: this.series
-                }
-                
-                options2.drilldown = {
+                    options1.series[0] = {
+                        name: 'Bodegas',
                         colorByPoint: true,
-                        series: this.drilldowns
-                }
-                chart2.hideLoading();
-                Highcharts.chart('container-dilldrops', options2);
-        //    }, 4000);
+                        data: response.data.graphs.storage.records
+                    }
+                    chart.hideLoading();
+                    Highcharts.chart('container-storage', options1);
 
+                    options2.series[0] = {
+                        name: "Negocios",
+                        colorByPoint: true,
+                        data: this.series
+                    }
+                    
+                    options2.drilldown = {
+                            colorByPoint: true,
+                            series: this.drilldowns
+                    }
+                    chart2.hideLoading();
+                    Highcharts.chart('container-dilldrops', options2);
             })
-             .catch(error => {
+            .catch(error => {
                 
-             })
+            })
         }
     },
     components: {

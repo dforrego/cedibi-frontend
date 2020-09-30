@@ -69,12 +69,11 @@ export default {
 		if (this.$session.exists()) {
 			this.$store.commit('setLogin');
 			if (profile.profile.rol.code == 10){
-				this.$router.push({ name: 'dash-client'});
+				this.$router.push({name: 'dash-client'});
 			} else {
-				this.$router.push({ name: 'dash-cedi'	});
+				this.$router.push({name: 'dash-cedi'});
 			}
 		}
-	
 	},
 	methods: {
 		login: function () {
@@ -104,10 +103,7 @@ export default {
 					});
 				}
 			})
-			.catch (err => {
-				console.log(err);
-				console.log(typeof err);
-				
+			.catch (err => {				
 				this.visible_alert = true;
 				if (err.toString().includes("400")){
 					this.msg = "Datos incorrectos del usuario";
@@ -161,12 +157,10 @@ export default {
 	}
 
 	.box-left {
-		
-		background-image: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ), url('../../../assets/images/preview.jpg');
+		background-image: linear-gradient(
+      	rgba(0, 0, 0, 0.5),
+      	rgba(0, 0, 0, 0.5)
+    	), url('../../../assets/images/preview.jpg');
 		background-size: cover;
 		background-position: 50% 50%;
 
@@ -235,24 +229,24 @@ export default {
 }
 }
 @media (max-width: 900px) {
-.login-page {
-	.box-left {
-		.wrapper {
-			.h-big {
-				font-size: 30px;
+	.login-page {
+		.box-left {
+			.wrapper {
+				.h-big {
+					font-size: 30px;
+				}
 			}
 		}
 	}
 }
-}
 @media (max-width: 768px) {
-.login-page {
-	display: block;
-	overflow: auto;
-	
-	.side-box {
+	.login-page {
 		display: block;
+		overflow: auto;
+		
+		.side-box {
+			display: block;
+		}
 	}
-}
 }
 </style>
