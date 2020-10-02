@@ -80,7 +80,7 @@ export default {
 							regionP = {
 								id: 'id_' + regionI,
 								name: region,
-								color: Highcharts.getOptions().colors[regionI*2+1]
+								color: Highcharts.getOptions().colors[regionI+3]
 							};
 							countryI = 0;
 							for (country in data[region]) {
@@ -89,7 +89,7 @@ export default {
 										id: regionP.id + '_' + countryI,
 										name: country,
 										parent: regionP.id,
-										color: Highcharts.getOptions().colors[countryI*2]
+										color: Highcharts.getOptions().colors[countryI+5]
 									};
 									points.push(countryP);
 									causeI = 0;
@@ -99,7 +99,7 @@ export default {
 												id: countryP.id + '_' + causeI,
 												name: cause,
 												parent: countryP.id,
-												color: Highcharts.getOptions().colors[causeI*2+1]
+												color: Highcharts.getOptions().colors[causeI+2]
 											};
 											points.push(causeP);
 											articleI = 0;
@@ -147,7 +147,7 @@ export default {
 								dataLabels: {
 									enabled: true
 								},
-								borderWidth: 6
+								borderWidth: 12,borderColor: '#ffffff'
 							}],
 							data: points
 						}],
