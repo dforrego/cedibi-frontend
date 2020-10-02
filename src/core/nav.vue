@@ -32,9 +32,9 @@
 			<el-menu-item index="/client/board/ocupacion" v-show="!isCedi">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Ocupación del Negocio</span>
 			</el-menu-item>
-			<!-- <el-menu-item index="/client/board/ocupacion" v-show="!isCedi">
+			<el-menu-item index="/client/board/inventario" v-show="!isCedi">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Rotación de Inventario</span>
-			</el-menu-item> -->
+			</el-menu-item>
 			
 		</el-submenu>
 		<el-menu-item @click="logout">

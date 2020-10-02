@@ -9,6 +9,7 @@ import Base from '../views/pages/menu/home/BasePage.vue'
 import Board1 from '../views/pages/menu/Board1.vue'
 import Board2 from '../views/pages/menu/Board2.vue'
 import Board3 from '../views/pages/menu/Board3.vue'
+import Board4 from '../views/pages/menu/Board4.vue'
 import Profile from '../views/pages/menu/Profile.vue'
 import NotFound from '../views/pages/NotFound.vue'
 import LogInApp from '../views/pages/auth/Login.vue'
@@ -111,19 +112,17 @@ const router = new Router({
 				tags: ['pages']
 			}
 		},
-
-	/* 	{
+	 	{
 			path: '/client/board/inventario',
-			component: Board1,
-			name: 'board-3',
+			component: Board4,
+			name: 'board-4',
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
 				searchable: true,
 				tags: ['pages']
 			}
-		}, */
-	
+		}, 
 		{
 			path: '/profile',
 			name: 'profile',

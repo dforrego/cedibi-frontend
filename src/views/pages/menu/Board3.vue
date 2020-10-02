@@ -3,7 +3,22 @@
 	<h2>{{board.name}}</h2>
 	<h4>{{board.type.name}}</h4>
 	<h6>{{board.description}}</h6>	
-	<el-row class="mt-0" :gutter="30">	
+	<el-row class="mt-0" :gutter="30">
+		
+		<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+			<strong>Negocio:</strong><br>
+			 <el-select v-model="negocio" v-on:change="onChange" placeholder="Seleccionar Negocio">
+				<el-option
+				v-for="item in items"
+				:key="item.value"
+				:label="item.label"
+				:selected="item.selected"
+				:value="item.value">
+				</el-option>
+			</el-select>
+			<br>
+			<br>
+		</el-col>	
 		<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 			<div id="container-board"></div>
 		</el-col>
@@ -28,6 +43,7 @@ export default {
 			tableData: [],
 			board_id: 0,
 			user_id: 0,
+			negocio: '',
 			board: {
 				name: '',
 				description:'',
@@ -37,7 +53,12 @@ export default {
 				},
 				status: '',
 				created_at: ''
-			}
+			},
+			items:[
+				{value: 1, label: 'NEGOCIO-1', selected:true},
+				{value: 10, label: 'NEGOCIO-10'},
+				{value: 35, label: 'NEGOCIO-35'},
+			]
         }
     },
     async mounted() {
@@ -47,6 +68,20 @@ export default {
 			this.user_id = user.id;
 			this.board_id = 2
 			//----
+			//this.value = 1
+			this.getData(this.items[0].value)
+		}
+
+	},
+	methods: {
+		getData(cod) {
+
+			let head = {
+				headers: { 
+					Authorization : 'Bearer ' + this.$store.state.poo.object1
+				}
+			};
+
 			var points = [],
 				regionP,
 				regionVal,
@@ -68,26 +103,52 @@ export default {
 				};
 
 			Highcharts.setOptions({
-					'lang':{
-						downloadPDF: "Descargar en formato PDF",
-						downloadPNG: "Descargar en formato PNG",
-						downloadJPEG:"Descargar en formato JPG",
-						downloadSVG:"Descargar en formato SVG",
-						downloadXLS:"Descargar en formato XLS",
-						drillUpText:"< Atrás",
-						viewFullscreen: "Ver en pantalla completa",
-						printChart: "Imprimir gráfica"
-					}
-				})
-				
-
-			let head = {
-				headers: { 
-					Authorization : 'Bearer ' + this.$store.state.poo.object1
+				'lang':{
+					downloadPDF: "Descargar en formato PDF",
+					downloadPNG: "Descargar en formato PNG",
+					downloadJPEG:"Descargar en formato JPG",
+					downloadSVG:"Descargar en formato SVG",
+					downloadXLS:"Descargar en formato XLS",
+					drillUpText:"< Atrás",
+					viewFullscreen: "Ver en pantalla completa",
+					printChart: "Imprimir gráfica",
+					loading: "Cargando Gráfica"
 				}
-			};
+			});
+			var options = {
+				series: [{
+					type: 'treemap',
+					layoutAlgorithm: 'squarified',
+					allowDrillToNode: true,
+					animationLimit: 1000,
+					drillUpButton: {
+						text: '< Atrás'
+					},	
+					dataLabels: {
+						enabled: false
+					},
+					levelIsConstant: false,
+					levels: [{
+						level: 1,
+						dataLabels: {
+							enabled: true
+						},
+						borderWidth: 5
+					}],
+					data: points
+				}],
+				subtitle: {
+					text: ''
+				},
+				title: {
+					text: ''
+				}
+			}
 
-			this.$axios.get('boards/1/occupation/35', head)
+			var chart = Highcharts.chart('container-board', options);
+			chart.showLoading();
+
+			this.$axios.get('boards/1/occupation/'+ cod, head)
 		    	.then( response => {
 					var data = response.data.graph;
 					this.board = response.data.board
@@ -145,43 +206,18 @@ export default {
 						}
 					}
 					
-				
-					Highcharts.chart('container-board', {
-						series: [{
-							type: 'treemap',
-							layoutAlgorithm: 'squarified',
-							allowDrillToNode: true,
-							animationLimit: 1000,
-							drillUpButton: {
-								text: '< Atrás'
-							},	
-							dataLabels: {
-								enabled: false
-							},
-							levelIsConstant: false,
-							levels: [{
-								level: 1,
-								dataLabels: {
-									enabled: true
-								},
-								borderWidth: 5
-							}],
-							data: points
-						}],
-						subtitle: {
-							text: ''
-						},
-						title: {
-							text: ''
-						}
-					});
+					chart.hideLoading();
+					options.series[0].data = points;
+					Highcharts.chart('container-board', options);
 				})
 				.catch(error => {
 					
 				})
-		}
-
-    },
+		},
+ 		onChange(event) {
+			this.getData(event)
+        }
+	},
     components: {
         componentComments
     }
