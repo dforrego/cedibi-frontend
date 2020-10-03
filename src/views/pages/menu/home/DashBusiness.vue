@@ -25,7 +25,7 @@
 							</div>
 							<div class="widget-info box grow text-truncate animated fadeInLeft">
 								<div class="o-050 widget-title text-truncate pt-5 pb-10">Ocupación Total</div>
-								<h3 class="m-0 text-truncate">{{total}} und.</h3>
+								<h3 class="m-0 text-truncate">{{total}} estibas</h3>
 							</div>
 						</div>
 					</div>

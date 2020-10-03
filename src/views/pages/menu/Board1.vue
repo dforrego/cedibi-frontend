@@ -158,62 +158,53 @@ export default {
 		    	.then( response => {
 					var data = response.data.graph;
 					this.board = response.data.board
-					
+					console.log(data);
 					for (region in data) {
-						if (data.hasOwnProperty(region)) {
-							regionVal = 0;
-							regionP = {
-								id: 'id_' + regionI,
-								name: region,
-								color: Highcharts.getOptions().colors[regionI+3]
+						regionVal = 0;
+						regionP = {
+							id: 'id_' + regionI,
+							name: region,
+							color: Highcharts.getOptions().colors[regionI+3]
+						};
+						countryI = 0;
+						for (country in data[region]) {
+							countryP = {
+								id: regionP.id + '_' + countryI,
+								name: country,
+								parent: regionP.id,
+								color: Highcharts.getOptions().colors[countryI+5]
 							};
-							countryI = 0;
-							for (country in data[region]) {
-								if (data[region].hasOwnProperty(country)) {
-									countryP = {
-										id: regionP.id + '_' + countryI,
-										name: country,
-										parent: regionP.id,
-										color: Highcharts.getOptions().colors[countryI+5]
+							points.push(countryP);
+							causeI = 0;
+							for (cause in data[region][country]) {
+								causeP = {
+									id: countryP.id + '_' + causeI,
+									name: cause,
+									parent: countryP.id,
+									color: Highcharts.getOptions().colors[causeI+2]
+								};
+								points.push(causeP);
+								articleI = 0;
+								for (article in data[region][country][cause]){
+									articleP = {
+										id: causeP.id + '_' + articleI,
+										name: article,
+										parent: causeP.id,
+										value: +data[region][country][cause][article],
+										color: Highcharts.getOptions().colors[articleI*2+1]
 									};
-									points.push(countryP);
-									causeI = 0;
-									for (cause in data[region][country]) {
-											if (data[region][country].hasOwnProperty(cause)) {
-											causeP = {
-												id: countryP.id + '_' + causeI,
-												name: cause,
-												parent: countryP.id,
-												color: Highcharts.getOptions().colors[causeI+2]
-											};
-											points.push(causeP);
-											articleI = 0;
-											for (article in data[region][country][cause]){
-											if (data[region][country][cause].hasOwnProperty(article)) {
-												articleP = {
-													id: causeP.id + '_' + articleI,
-													name: article,
-													parent: causeP.id,
-													value: Math.round(+data[region][country][cause][article]),
-													color: Highcharts.getOptions().colors[articleI*2+1]
-												};
-												regionVal += articleP.value;
-												points.push(articleP);
-												articleI = articleI + 1;
-											}
-										}
-										}
-										causeI = causeI + 1;
-									}
-									countryI = countryI + 1;
+									regionVal += articleP.value;
+									points.push(articleP);
+									articleI = articleI + 1;
 								}
+								causeI = causeI + 1;
 							}
-							//regionP.value = Math.round(regionVal / countryI);
-							points.push(regionP);
-							regionI = regionI + 1;
+							countryI = countryI + 1;
 						}
+						regionP.value = regionVal;
+						points.push(regionP);
+						regionI = regionI + 1;
 					}
-				console.log(points);	
 					chart.hideLoading();
 					options.series[0].data = points;
 					Highcharts.chart('container-board', options);
