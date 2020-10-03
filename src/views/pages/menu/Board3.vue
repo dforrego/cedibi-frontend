@@ -68,7 +68,6 @@ export default {
 			this.user_id = user.id;
 			this.board_id = 2
 			//----
-			//this.value = 1
 			this.getData(this.items[0].value)
 		}
 
@@ -159,7 +158,7 @@ export default {
 							regionP = {
 								id: 'id_' + regionI,
 								name: region,
-								color: Highcharts.getOptions().colors[regionI*2+1]
+								color: Highcharts.getOptions().colors[regionI+3]
 							};
 							countryI = 0;
 							for (country in data[region]) {
@@ -168,7 +167,7 @@ export default {
 										id: regionP.id + '_' + countryI,
 										name: country,
 										parent: regionP.id,
-										color: Highcharts.getOptions().colors[countryI*2]
+										color: Highcharts.getOptions().colors[countryI+5]
 									};
 									points.push(countryP);
 									causeI = 0;
@@ -177,7 +176,8 @@ export default {
 											causeP = {
 												id: countryP.id + '_' + causeI,
 												name: cause,
-												parent: countryP.id
+												parent: countryP.id,
+												color: Highcharts.getOptions().colors[causeI+2]
 											};
 											points.push(causeP);
 											articleI = 0;
@@ -187,7 +187,8 @@ export default {
 													id: causeP.id + '_' + articleI,
 													name: article,
 													parent: causeP.id,
-													value: Math.round(+data[region][country][cause][article])
+													value: Math.round(+data[region][country][cause][article]),
+													color: Highcharts.getOptions().colors[articleI*2+1]
 												};
 												regionVal += articleP.value;
 												points.push(articleP);
