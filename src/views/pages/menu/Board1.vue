@@ -138,7 +138,8 @@ export default {
 						dataLabels: {
 							enabled: true
 						},
-						borderWidth: 5
+						borderWidth: 12,
+						borderColor:'#ffffff'
 					}],
 					data: points
 				}],
@@ -207,12 +208,12 @@ export default {
 									countryI = countryI + 1;
 								}
 							}
-							regionP.value = Math.round(regionVal / countryI);
+							//regionP.value = Math.round(regionVal / countryI);
 							points.push(regionP);
 							regionI = regionI + 1;
 						}
 					}
-					
+				console.log(points);	
 					chart.hideLoading();
 					options.series[0].data = points;
 					Highcharts.chart('container-board', options);
