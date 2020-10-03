@@ -84,7 +84,7 @@
 			<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
 				<div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent">
 					<div class="widget-header ph-20 pt-20">
-						<div id="container-pie2"></div>
+						<div id="container-columns"></div>
 					</div>
 				</div>
 			</el-col>
@@ -174,28 +174,55 @@ export default {
 		};
 		var options2 = {
 			chart: {
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false,
-				type: 'pie'
+				type: 'column'
 			},
 			title: {
 				text: 'Almacenamiento Interno y Externo'
 			},
-			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+			xAxis: {
+				categories: []
 			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-						format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Total almacenamiento'
+				},
+				stackLabels: {
+					enabled: true,
+					style: {
+						fontWeight: 'bold',
+						color: ( // theme
+							Highcharts.defaultOptions.title.style &&
+							Highcharts.defaultOptions.title.style.color
+						) || 'gray'
 					}
 				}
 			},
-			series:  []
+			legend: {
+				align: 'right',
+				x: -30,
+				verticalAlign: 'top',
+				y: 25,
+				floating: true,
+				backgroundColor:
+					Highcharts.defaultOptions.legend.backgroundColor || 'white',
+				borderColor: '#CCC',
+				borderWidth: 1,
+				shadow: false
+			},
+			tooltip: {
+				headerFormat: '<b>{point.x}</b><br/>',
+				pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+			},
+			plotOptions: {
+				column: {
+					stacking: 'normal',
+					dataLabels: {
+						enabled: true
+					}
+				}
+			},
+			series: []
 		};
 		var options3 = { 
 			chart: {
@@ -224,7 +251,7 @@ export default {
 		var chart = Highcharts.chart('container-pie', options1);
 		chart.showLoading();
 
-		var chart2 = Highcharts.chart('container-pie2', options2);
+		var chart2 = Highcharts.chart('container-columns', options2);
 		chart2.showLoading();
 
 		var chart3 = Highcharts.chart('container-bars', options3);
@@ -240,6 +267,7 @@ export default {
 				this.internal = data.internal.total
 				this.external = data.external.total
 				var graph2 = data.mix.records
+				var categories = data.mix.categories
 				var titles = data.status.titles
 				var values = data.status.values
 
@@ -251,14 +279,12 @@ export default {
 				chart.hideLoading();
 				Highcharts.chart('container-pie', options1);
 				//---
-				options2.series[0] = {
-					name: 'Bodegas',
-					colorByPoint: true,
-					data: graph2
+				options2.series = graph2
+				options2.xAxis = {
+					categories: categories
 				}
 				chart2.hideLoading();
-				Highcharts.chart('container-pie2', options2);
-			
+				Highcharts.chart('container-columns', options2);
 				//---
 				options3.series[0] = {
 					name: 'Estibas',
