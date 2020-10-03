@@ -11,7 +11,11 @@
 		
 		<div class="el-menu-item-group__title"><span class="font-size-14">Menú</span></div>
 		<br>
-		<el-menu-item index="/cedi">
+		<el-menu-item index="/cedi" v-show="isCedi">
+				<i class="mdi mdi-home-analytics"></i><span slot="title" class="font-size-14">Inicio</span>
+		</el-menu-item>
+
+		<el-menu-item index="/client" v-show="!isCedi">
 				<i class="mdi mdi-home-analytics"></i><span slot="title" class="font-size-14">Inicio</span>
 		</el-menu-item>
 		<el-menu-item index="/profile">
@@ -23,14 +27,14 @@
 			</template>
 
 			<el-menu-item index="/cedi/board/ocupacion" v-show="isCedi">
-				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Ocupación CEDI</span>
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Ocupación por Bodega</span>
 			</el-menu-item>
 			<el-menu-item index="/cedi/board/vencimiento" v-show="isCedi">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Vencimientos</span>
 			</el-menu-item>
 
 			<el-menu-item index="/client/board/ocupacion" v-show="!isCedi">
-				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Ocupación del Negocio</span>
+				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Ocupación por Negocio</span>
 			</el-menu-item>
 			<el-menu-item index="/client/board/inventario" v-show="!isCedi">
 				<i class="mdi mdi-view-dashboard-outline"></i><span slot="title" class="font-size-14">Rotación de Inventario</span>
