@@ -41,7 +41,7 @@ export default {
 			tableData: [],
 			board_id: 0,
 			user_id: 0,
-			bodega:'',
+			bodega:'2',
 			board: {
 				name: '',
 				description:'',

@@ -43,7 +43,7 @@ export default {
 			tableData: [],
 			board_id: 0,
 			user_id: 0,
-			negocio: '',
+			negocio: 1,
 			board: {
 				name: '',
 				description:'',
