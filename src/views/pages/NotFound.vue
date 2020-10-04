@@ -1,9 +1,9 @@
 <template>
 	<div class="not-found">
 		<div class="msg-box">
-			<h1 class="animated fadeInDown">404 Not Found</h1>
+			<h1 class="animated fadeInDown">No se encuentra</h1>
 			<h2 class="animated fadeInUp">
-				Oops!<br>It seems that this page does not exist.
+				¡Lo sentimos!<br>Esta página no existe.
 			</h2>
 		</div>
 	</div>

@@ -27,7 +27,7 @@ const router = new Router({
 			name: 'login',
 			component: LogInApp,
 			meta: {
-				layout: layouts.contenOnly
+				layout: layouts.contenOnly, title: 'Inicio de Sesión'
 			}
 		},
 		{
@@ -38,6 +38,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Cedi',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -49,6 +50,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Cedi',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -61,6 +63,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Ocupación',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -72,6 +75,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Vencimiento',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -85,6 +89,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Negocio',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -96,6 +101,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Negocio',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -108,6 +114,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Ocupación',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -119,6 +126,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Tablero Rotación Inventario',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -130,6 +138,7 @@ const router = new Router({
 			meta: {
 				auth: true,
 				layout: layouts.navLeft,
+				title: 'Perfil',
 				searchable: true,
 				tags: ['pages']
 			}
@@ -145,6 +154,7 @@ const router = new Router({
 			path: '*',
 			name: 'not-found',
 			component: NotFound,
+			title: 'No encontrado',
 			meta: {
 				layout: layouts.contenOnly
 			}
@@ -185,6 +195,7 @@ const auth = {
 }
 
 router.beforeEach((to, from, next) => {
+	document.title = "Portal CeDi BI | " + to.meta.title
 	let authrequired = to && to.meta && to.meta.auth 
 	if(authrequired) {
 		if(auth.loggedIn()) {
