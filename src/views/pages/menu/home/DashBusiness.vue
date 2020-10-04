@@ -73,7 +73,7 @@
 				</div>
 			</el-col>  
 
-			<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="24">
+			<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 				<div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent">
 					<div class="widget-header ph-20 pt-20">
 						<div id="container-pie"></div>
@@ -81,7 +81,7 @@
 				</div>
 			</el-col>
 
-			<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="24">
+			<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 				<div class="card-base card-shadow--medium mb-30 widget small-widget" v-loading="!asyncComponent">
 					<div class="widget-header ph-20 pt-20">
 						<div id="container-columns"></div>
