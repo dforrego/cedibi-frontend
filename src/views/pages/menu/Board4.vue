@@ -106,6 +106,9 @@ export default {
                     }
                 },
                 xAxis: {
+                    title: {
+                        text: 'Trimestre'
+                    },
                     accessibility: {
                         rangeDescription: 'Periodo: Trimestral'
                     }
