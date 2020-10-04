@@ -246,9 +246,6 @@ export default {
 		var chart2 = Highcharts.chart('container-columns', options2);
 		chart2.showLoading();
 
-		var chart3 = Highcharts.chart('container-bars', options3);
-		chart3.showLoading();
-
 		this.$axios.get('roles/' + profile.profile.rol.code + '/dashboard', head)
 			.then( response => {
 				var data = response.data.data;
@@ -283,11 +280,6 @@ export default {
 					colorByPoint: true,
 					data: values
 				}
-				options3.xAxis = {
-					categories: titles
-				}
-				chart3.hideLoading();
-				Highcharts.chart('container-bars', options3);
 			})
 			.catch(err =>{
 				this.openError();
