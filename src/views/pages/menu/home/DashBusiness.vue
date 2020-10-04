@@ -147,7 +147,7 @@ export default {
 				type: 'pie'
 			},
 			title: {
-				text: 'Almacenamiento por Bodega.'
+				text: 'Almacenamiento por Negocio.'
 			},
 			tooltip: {
 				pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
