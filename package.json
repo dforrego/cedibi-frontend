@@ -20,7 +20,7 @@
     "es7-shim": "^6.0.0",
     "flag-icon-css": "^3.3.0",
     "flex.box": "^3.4.4",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "moment-timezone": "^0.5.23",
     "perfect-scrollbar": "^1.4.0",
     "v-click-outside": "^1.0.5",
